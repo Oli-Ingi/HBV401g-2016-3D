@@ -43,6 +43,7 @@ public class MainDisplay extends javax.swing.JFrame {
     private boolean rated;
     private int ratingChosen;
     private Tour currentlySelectedTour;
+    private Guide currentlySelectedGuide;
     
     /**
      * Creates new form BackupDisplay
@@ -564,9 +565,19 @@ public class MainDisplay extends javax.swing.JFrame {
 
         tourGuideLab2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tourGuideLab2.setForeground(new java.awt.Color(0, 0, 255));
+        tourGuideLab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tourGuideLab2MouseClicked(evt);
+            }
+        });
 
         tourGuideLab3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tourGuideLab3.setForeground(new java.awt.Color(0, 0, 255));
+        tourGuideLab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tourGuideLab3MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout tourDetailsPanLayout = new javax.swing.GroupLayout(tourDetailsPan);
         tourDetailsPan.setLayout(tourDetailsPanLayout);
@@ -1129,7 +1140,7 @@ public class MainDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_orderComboActionPerformed
 
     private void guideReviewWriteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guideReviewWriteBtnActionPerformed
-        // TODO add your handling code here
+        new WriteGuideReviewDisplay(currentlySelectedGuide.getName()).setVisible(true);
     }//GEN-LAST:event_guideReviewWriteBtnActionPerformed
 
     private void tourReviewWriteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourReviewWriteBtnActionPerformed
@@ -1140,11 +1151,32 @@ public class MainDisplay extends javax.swing.JFrame {
     private void tourGuideLab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourGuideLab1MouseClicked
         ((CardLayout)selectedMainCard.getLayout()).next(selectedMainCard);
         guideNameLab.setText("Full name: "+currentlySelectedTour.getGuides().get(0).getName());
+        currentlySelectedGuide = currentlySelectedTour.getGuides().get(0);
         guideGenderLab.setText("Gender: "+currentlySelectedTour.getGuides().get(0).getGender());
         guideAgeLab.setText("Age: "+currentlySelectedTour.getGuides().get(0).getAge());
         guideProfileTxtArea.setText(currentlySelectedTour.getGuides().get(0).getProfile());
         guideProfileTxtArea.setCaretPosition(0);
     }//GEN-LAST:event_tourGuideLab1MouseClicked
+
+    private void tourGuideLab2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourGuideLab2MouseClicked
+        ((CardLayout)selectedMainCard.getLayout()).next(selectedMainCard);
+        guideNameLab.setText("Full name: "+currentlySelectedTour.getGuides().get(1).getName());
+        currentlySelectedGuide = currentlySelectedTour.getGuides().get(1);
+        guideGenderLab.setText("Gender: "+currentlySelectedTour.getGuides().get(1).getGender());
+        guideAgeLab.setText("Age: "+currentlySelectedTour.getGuides().get(1).getAge());
+        guideProfileTxtArea.setText(currentlySelectedTour.getGuides().get(1).getProfile());
+        guideProfileTxtArea.setCaretPosition(0);
+    }//GEN-LAST:event_tourGuideLab2MouseClicked
+
+    private void tourGuideLab3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourGuideLab3MouseClicked
+        ((CardLayout)selectedMainCard.getLayout()).next(selectedMainCard);
+        guideNameLab.setText("Full name: "+currentlySelectedTour.getGuides().get(2).getName());
+        currentlySelectedGuide = currentlySelectedTour.getGuides().get(2);
+        guideGenderLab.setText("Gender: "+currentlySelectedTour.getGuides().get(2).getGender());
+        guideAgeLab.setText("Age: "+currentlySelectedTour.getGuides().get(2).getAge());
+        guideProfileTxtArea.setText(currentlySelectedTour.getGuides().get(2).getProfile());
+        guideProfileTxtArea.setCaretPosition(0);
+    }//GEN-LAST:event_tourGuideLab3MouseClicked
 
     private int priceToInt(String priceStr){
         StringBuilder priceB = new StringBuilder(priceStr);
