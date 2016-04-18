@@ -1005,6 +1005,7 @@ public class MainDisplay extends javax.swing.JFrame {
                 tourTypeLab.setText("Type: "+selected.getType());
                 tourPriceLab.setText("Price: "+selected.getPrice()+" kr.");
                 tourDescTxt.setText(selected.getDescription());
+                tourDescTxt.setCaretPosition(0);
                 tourDateLab.setText("Date: "+selected.getDate());
                 tourDepartureLab.setText("Departure from: "+selected.getDepartureLocation());
                 tourDestinationLab.setText("Destination: "+selected.getDestination());
