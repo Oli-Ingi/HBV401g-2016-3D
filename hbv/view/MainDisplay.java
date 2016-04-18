@@ -23,6 +23,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
@@ -645,6 +646,11 @@ public class MainDisplay extends javax.swing.JFrame {
         });
 
         tourReviewWriteBtn.setText("Write review");
+        tourReviewWriteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tourReviewWriteBtnActionPerformed(evt);
+            }
+        });
 
         tourBeenLab.setFont(new java.awt.Font("Viner Hand ITC", 0, 18)); // NOI18N
         tourBeenLab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -806,6 +812,11 @@ public class MainDisplay extends javax.swing.JFrame {
         });
 
         guideReviewWriteBtn.setText("Write review");
+        guideReviewWriteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guideReviewWriteBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout guideReviewsPanLayout = new javax.swing.GroupLayout(guideReviewsPan);
         guideReviewsPan.setLayout(guideReviewsPanLayout);
@@ -1102,6 +1113,16 @@ public class MainDisplay extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_orderComboActionPerformed
+
+    private void guideReviewWriteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guideReviewWriteBtnActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_guideReviewWriteBtnActionPerformed
+
+    private void tourReviewWriteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourReviewWriteBtnActionPerformed
+        // TODO add your handling code here:
+        new WriteTourReviewDisplay(((Tour)tourList.getSelectedValue()).getName()).setVisible(true);
+    }//GEN-LAST:event_tourReviewWriteBtnActionPerformed
 
     private int priceToInt(String priceStr){
         StringBuilder priceB = new StringBuilder(priceStr);

@@ -585,6 +585,9 @@
                   <StringArray count="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="orderComboActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox(new String[]{&quot;&quot;,&quot;Name&quot;,&quot;Date&quot;,&quot;Type&quot;,&quot;Rating&quot;,&quot;Price&quot;})"/>
               </AuxValues>
@@ -1072,6 +1075,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Write review"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tourReviewWriteBtnActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="tourBeenLab">
                       <Properties>
@@ -1344,6 +1350,9 @@
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Write review"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="guideReviewWriteBtnActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
