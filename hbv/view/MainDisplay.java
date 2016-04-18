@@ -1080,31 +1080,27 @@ public class MainDisplay extends javax.swing.JFrame {
 
     private void orderComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderComboActionPerformed
         
-        try{
+        if(tourModel.isEmpty()) return;
+        if(orderCombo.getSelectedItem().equals("Name")){
+            SearchManager.sortByName();
+        }
+        else if(orderCombo.getSelectedItem().equals("Date")){
+            SearchManager.sortByDate();
+        }
+        else if(orderCombo.getSelectedItem().equals("Type")){
+            SearchManager.sortByType();
+        }
+        else if(orderCombo.getSelectedItem().equals("Rating")){
+            SearchManager.sortByRating();
+        }
+        else if(orderCombo.getSelectedItem().equals("Price")){
+            SearchManager.sortByPrice();
+        }
+        tourModel.clear();
+        for(Tour tour: tours){
+                tourModel.addElement(tour);
+        }
 
-            if(orderCombo.getSelectedItem().equals("Name")){
-                SearchManager.sortByName();
-            }
-            else if(orderCombo.getSelectedItem().equals("Date")){
-                SearchManager.sortByDate();
-            }
-            else if(orderCombo.getSelectedItem().equals("Type")){
-                SearchManager.sortByType();
-            }
-            else if(orderCombo.getSelectedItem().equals("Rating")){
-                SearchManager.sortByRating();
-            }
-            else if(orderCombo.getSelectedItem().equals("Price")){
-                SearchManager.sortByPrice();
-            }
-            tourModel.clear();
-            for(Tour tour: tours){
-                    tourModel.addElement(tour);
-            }
-        }
-        catch(NullPointerException e){
-            
-        }
     }//GEN-LAST:event_orderComboActionPerformed
 
     private int priceToInt(String priceStr){
