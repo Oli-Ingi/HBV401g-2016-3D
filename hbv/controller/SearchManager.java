@@ -48,7 +48,11 @@ public class SearchManager {
 		
 		
 		// Bý til lista af Tour hlutum miðað við leitarskilyrðin.
-		String[][] dbData = DBManager.getData("*","Tours",searchParams);
+		String[][] dbData = DBManager.getData("Tours.Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,"
+                        + "Price,Destination,Departure,Type,HotelPickup","Tours JOIN TourDates on Tours.Name=TourDates.Name",searchParams);
+                for(int i=0; i<dbData[0].length;i++){
+                    System.out.println(dbData[0][i]);
+                }
                 
 		// hreinsa gömlu leitarniðurstöðurnar úr tours (ef einhverjar eru).
 		tours.clear();
@@ -64,26 +68,23 @@ public class SearchManager {
 		return tours;
 	}
 	
-	public static void bookTourSeats(String tourName, int bookedSeats) throws NoSuchElementException, IllegalArgumentException{
+	public static void bookTourSeats(Tour tour, int bookedSeats) throws NoSuchElementException, IllegalArgumentException{
 
 		// Byrjum að athuga núverandi sætafjölda.
 		HashMap<String,Object> whereParams = new HashMap<>();
-		whereParams.put("Name=", tourName);
-		String[][] seatData = DBManager.getData("SeatsAvailable", "Tours", whereParams);
+		whereParams.put("Name=", tour.getName());
+                whereParams.put("Date=", tour.getDate());
+		String[][] seatData = DBManager.getData("SeatsAvailable", "Tours JOIN TourDates on Tours.Name=TourDates.Name", whereParams);
 		int seats = Integer.parseInt(seatData[0][0]);
 		if(bookedSeats<0) throw new IllegalArgumentException("Second input parameter must be positive.");
 		
 		// Lækkum sætafjöldann til að tákna að bókun hafi átt sér stað að því gefnu að nægilegt sætamagn sé í boði.
 		if(seats>bookedSeats){
-			DBManager.updateData("Tours", "SeatsAvailable", String.valueOf(seats-bookedSeats), whereParams);
+			DBManager.updateData("TourDates", "SeatsAvailable", String.valueOf(seats-bookedSeats), whereParams);
 		} else throw new IllegalArgumentException("Too few seats available.");
 		
 		// Ef að túrinn er í núverandi tours lista, update-um við hann líka.
-		for(Tour tour: tours){
-			if(tour.getName().equals(tourName)){
-				tour.bookSeats(bookedSeats);
-			}
-		}
+		tour.bookSeats(bookedSeats);
 	}
 	
 	public static void updateRating(String tourName, int newRating) throws NoSuchElementException, IllegalArgumentException{

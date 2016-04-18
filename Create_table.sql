@@ -56,8 +56,6 @@ you could. ');
 CREATE TABLE Tours (
         Name VARCHAR(50) PRIMARY KEY,
         Description 	TEXT,
-        SeatsAvailable 	INT,
-        Date 		DATE,
         Duration 	INT,
         Rating 		FLOAT,
 	NumberOfRatings INT,
@@ -72,38 +70,38 @@ CREATE TABLE Tours (
 );
 
 INSERT INTO Tours(
-	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
+	Name,Description,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
 	VALUES(
 	'SnowMobile Adventure','We ride snowmobiles up on Vatnajokull.
 We will take you ther on a specialized mountain truck
 and let you ride on your own snowmobile. 
 
 At noon we will all eat lunch together which we 
-provide for you.',16,'2016-06-22',10,4.5,55,24000,'Vatnajokull','Vik','Adventure',0, 'Anna Sigga');
+provide for you.',10,4.5,55,24000,'Vatnajokull','Vik','Adventure',0, 'Anna Sigga');
 
 INSERT INTO Tours(
-	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
+	Name,Description,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
 	VALUES(
-	'Silfra scuba diving','We dive into Silfra',8,'2016-07-12',7,4.2,45,17000,'Silfra','Reykjavik','Adventure',1,'Siggi Steinn');
+	'Silfra scuba diving','We dive into Silfra',7,4.2,45,17000,'Silfra','Reykjavik','Adventure',1,'Siggi Steinn');
 
 INSERT INTO Tours(
-	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
+	Name,Description,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
 	VALUES(
 	'Vikings of Thingvellir','We will be walking through Thingvellir where we will see remnants
 of the oldest parliament in the world. This is where the Vikings
 of Iceland decided laws and passed judgements for crimes.
 
-This is a must see for any Vikings tv-show fan.',30,'2016-06-24',8,3.7,14,12000,'Thingvellir','Reykjavik','Adventure',0,'Siggi Steinn');
+This is a must see for any Vikings tv-show fan.',8,3.7,14,12000,'Thingvellir','Reykjavik','Adventure',0,'Siggi Steinn');
 
 INSERT INTO Tours(
-	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
+	Name,Description,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
 	VALUES(
 	'Geysers gone wild','We take a bus to see Geysir the famous Geyser which all Geysers
-are named after. Bring a rain coat because we are going in!',23,'2016-07-12',10,4.6,32,15000,'Geysir','Reykjavik','Golden Circle',1,'Anna Sigga');
+are named after. Bring a rain coat because we are going in!',10,4.6,32,15000,'Geysir','Reykjavik','Golden Circle',1,'Anna Sigga');
 
 
 INSERT INTO Tours(
-	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
+	Name,Description,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
 	VALUES(
 	'Whale killahs!','This isnt your regular whale watching tour. Oh no.. 
 First we find them, and then we watch them play for a while, 
@@ -113,20 +111,20 @@ seaMonster (our ship) and when we have caught a whale,
 we eat it.. raw..
 
 Afterwards we will have a kids festival on the peer where 
-we will eat marshmallows.',14,'2016-08-06',14,2.2,43,32000,'The Ocean','Husavik','Adventure',0,'Halli Icefit');
+we will eat marshmallows.',14,2.2,43,32000,'The Ocean','Husavik','Adventure',0,'Halli Icefit');
 
 INSERT INTO Tours(
-	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
+	Name,Description,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
 	VALUES(
 	'Blue lagoon Day Out','Have a nice day out with friends or family 
 enjoying this world famous attraction, the blue lagoon.
 The tour starts with a van picking you up at your hotel, and driving
 you to your destination. Enjoy the blue waters, healthy masks and bar
 then end the day dinning on one of icelands best restaurants, 
-before being driven back to your hotel',10,'2016-07-06',8,4.3,231,18000,'Blue Lagoon','Reykjavik','Nature',1,'Villi Siggs');
+before being driven back to your hotel',8,4.3,231,18000,'Blue Lagoon','Reykjavik','Nature',1,'Villi Siggs');
 
 INSERT INTO Tours(
-	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
+	Name,Description,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
 	VALUES(
 	'Sky on Fire ','Come with us to see the magnificence of the night sky in Iceland.
 We will be riding a bus into the wilderness until we see some 
@@ -134,14 +132,14 @@ spectacular sights in the sky, in which case we will step out
 and eat some sheeps heads together.
 
 Disclaimer: The likelihood of finding any northern lights is 
-slim to none. We therefore do not guarantee finding any.',26,'2017-02-12',14,3.6,201,23000,'Depends on weather','Reykjavik','Northern Lights',1,'Halli Icefit');
+slim to none. We therefore do not guarantee finding any.',14,3.6,201,23000,'Depends on weather','Reykjavik','Northern Lights',1,'Halli Icefit');
 
 INSERT INTO Tours(
-	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide4)
+	Name,Description,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
 	VALUES(
 	'Reykjavik Walk ','Come with us to see the magnificence of Reykjavik.
 We will be walking into reykjavik most epic sceneries and 
-spectacular sights.',30,'2017-02-12',3,1.2,4,4000,'Reykjavik sights','Downtown Reykjavik','Reykjavik',0,'Villi Siggs');
+spectacular sights.',3,1.2,4,4000,'Reykjavik sights','Downtown Reykjavik','Reykjavik',0,'Villi Siggs');
 
 Create TABLE GuideReviews(
 	Name VARCHAR(50) REFERENCES Guides(Name),
@@ -163,52 +161,53 @@ Create TABLE TourReviews(
 
 Create Table TourDates (
 	Name VARCHAR(50)  REFERENCES Tours(Name),
-	Date DATE
+	Date DATE,
+	SeatsAvailable INT
 );
 
-INSERT INTO TourDates(Name, Date)
-	VALUES("SnowMobile Adventure", '2016-06-22');
-INSERT INTO TourDates(Name, Date)
-	VALUES("SnowMobile Adventure", '2016-07-22');	
-INSERT INTO TourDates(Name, Date)
-	VALUES("SnowMobile Adventure", '2016-08-22');
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES("SnowMobile Adventure", '2016-06-22',23);
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES("SnowMobile Adventure", '2016-07-22',28);	
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES("SnowMobile Adventure", '2016-08-22',30);
 	
-INSERT INTO TourDates(Name, Date)
-	VALUES("Silfra scuba diving", '2016-07-12');
-INSERT INTO TourDates(Name, Date)
-	VALUES("Silfra scuba diving", '2016-07-15');
-INSERT INTO TourDates(Name, Date)
-	VALUES("Silfra scuba diving", '2016-07-17');	
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES("Silfra scuba diving", '2016-07-12',11);
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES("Silfra scuba diving", '2016-07-15',16);
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES("Silfra scuba diving", '2016-07-17',19);	
 	
-INSERT INTO TourDates(Name, Date)
-	VALUES('Vikings of Thingvellir', '2016-06-24');
-INSERT INTO TourDates(Name, Date)
-	VALUES('Vikings of Thingvellir', '2016-06-28');
-INSERT INTO TourDates(Name, Date)
-	VALUES('Vikings of Thingvellir', '2016-07-01');
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES('Vikings of Thingvellir', '2016-06-24',21);
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES('Vikings of Thingvellir', '2016-06-28',4);
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES('Vikings of Thingvellir', '2016-07-01',34);
 	
-INSERT INTO TourDates(Name, Date)
-	VALUES('Geysers gone wild', '2016-07-12');
-INSERT INTO TourDates(Name, Date)
-	VALUES('Geysers gone wild', '2016-07-13');
-INSERT INTO TourDates(Name, Date)
-	VALUES('Geysers gone wild', '2016-07-14');
-INSERT INTO TourDates(Name, Date)
-	VALUES('Geysers gone wild', '2016-07-15');
-INSERT INTO TourDates(Name, Date)
-	VALUES('Geysers gone wild', '2016-07-16');
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES('Geysers gone wild', '2016-07-12',12);
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES('Geysers gone wild', '2016-07-13',21);
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES('Geysers gone wild', '2016-07-14',22);
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES('Geysers gone wild', '2016-07-15',27);
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES('Geysers gone wild', '2016-07-16',35);
 	
-INSERT INTO TourDates(Name, Date)
-	VALUES('Whale killahs!', '2016-08-06');
-INSERT INTO TourDates(Name, Date)
-	VALUES('Whale killahs!', '2016-10-08');
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES('Whale killahs!', '2016-08-06',6);
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES('Whale killahs!', '2016-10-08',9);
 	
-INSERT INTO TourDates(Name, Date)
-	VALUES('Blue lagoon Day Out', '2016-05-01');
-INSERT INTO TourDates(Name, Date)
-	VALUES('Blue lagoon Day Out', '2016-05-05');
-INSERT INTO TourDates(Name, Date)
-	VALUES('Blue lagoon Day Out', '2016-05-09');
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES('Blue lagoon Day Out', '2016-05-01',22);
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES('Blue lagoon Day Out', '2016-05-05',27);
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES('Blue lagoon Day Out', '2016-05-09',33);
 	
-INSERT INTO TourDates(Name, Date)
-	VALUES('Sky on Fire', '2017-02-12');
+INSERT INTO TourDates(Name, Date,SeatsAvailable)
+	VALUES('Sky on Fire', '2017-02-12',33);

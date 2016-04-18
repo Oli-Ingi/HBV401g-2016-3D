@@ -42,8 +42,9 @@ public class DBManager {
 	 * Sendir SELECT fyrirspurn til gagnagrunnsins og skilar niðurstöðunum í 2D fylki.
 	 */
 	public static String[][] getData(String columns, String table, HashMap<String,Object> whereParams) throws NoSuchElementException{
-		
-		String prepWhere = buildWhereString(whereParams);
+		String prepWhere = "";
+                if(!whereParams.isEmpty()) prepWhere = buildWhereString(whereParams);
+                
 		String rowCounter = "SELECT COUNT(*) FROM "+table;
 		String search = "SELECT "+columns+" FROM "+table;
 		// data mun innihalda gögnin sem fást úr SQL-fyrirspurninni og verður þá skilagildi fallsins.
@@ -52,8 +53,9 @@ public class DBManager {
 		try {
 			setUp();
 			// Sækjum fjölda raða sem munu koma út úr SQL-fyrirspurninni.
-			pst = conn.prepareStatement(rowCounter+prepWhere.toString());
+			pst = conn.prepareStatement(rowCounter+prepWhere);
 			bindParams(1,whereParams);
+                        
 			res = pst.executeQuery();
 			// Fáum fjölda raða í leitarniðurstöðunum til að stilla fjölda raða í data fylkinu á eftir.
 			int rows = Integer.valueOf(res.getString(1));
@@ -61,7 +63,7 @@ public class DBManager {
 			if(rows==0) throw new NoSuchElementException("No match found in "+table+".");
 
 			// Sækjum gögnin sjálf.			
-			pst = conn.prepareStatement(search+prepWhere.toString());
+			pst = conn.prepareStatement(search+prepWhere);
 			bindParams(1,whereParams);
 			res = pst.executeQuery();
 
