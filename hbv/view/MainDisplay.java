@@ -36,8 +36,10 @@ import javax.swing.event.DocumentListener;
  */
 public class MainDisplay extends javax.swing.JFrame {
 
+    ArrayList<Review> tourReviews;
     ArrayList<Tour> tours;
     DefaultListModel<Tour> tourModel;
+    DefaultListModel<Review> tourReviewModel;
     private boolean rated;
     private int ratingChosen;
     private Tour currentlySelectedTour;
@@ -50,7 +52,8 @@ public class MainDisplay extends javax.swing.JFrame {
         initExtras();
     }
 
-    private void initExtras(){        
+    private void initExtras(){
+        this.setResizable(false);
         seatsErrorLab.setVisible(false);
         seatsTxt.getDocument().addDocumentListener(new DocumentListener(){
             @Override
@@ -78,10 +81,14 @@ public class MainDisplay extends javax.swing.JFrame {
             }
         });
         
+        tourReviews = null;
         tours = null;
         tourModel = new DefaultListModel<>();
+        tourReviewModel = new DefaultListModel<>();
         tourList.setModel(tourModel);
+        tourReviewList.setModel(tourReviewModel);
         tourList.setCellRenderer(new TourCellRenderer());
+        tourReviewList.setCellRenderer(new TourReviewCellRenderer());
         rated = false;
         
     }
@@ -1151,7 +1158,24 @@ public class MainDisplay extends javax.swing.JFrame {
         }
         return Integer.parseInt(priceB.toString());	
     }
-    
+
+    class TourReviewCellRenderer extends JLabel implements ListCellRenderer {
+        public TourReviewCellRenderer() {
+            setOpaque(true);
+        }
+        
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value,
+                int index, boolean isSelected, boolean cellHasFocus) {
+            Review review = (Review) value;
+            ReviewCell reviewEntry = new ReviewCell(review.getText(), review.getWriter(), review.getText());
+            
+            reviewEntry.setBorder(BorderFactory.createEtchedBorder());
+            reviewEntry.setBackground(Color.white);
+            reviewEntry.setBackground(Color.black);
+            return reviewEntry;
+        }
+    }
     
     class TourCellRenderer extends JLabel implements ListCellRenderer {
 
