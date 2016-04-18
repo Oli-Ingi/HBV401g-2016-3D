@@ -139,6 +139,16 @@ public class SearchManager {
             
             DBManager.insertData("TourReviews", insertParams);
         }
+        
+         public static void addGuideReview(String tourName, String writter, String reviewText, Date writtenDate){
+            HashMap<String, Object> insertParams = new HashMap<>();
+            insertParams.put("Name", tourName);
+            insertParams.put("ReviewTxt", reviewText);
+            insertParams.put("Writter", writter);
+            insertParams.put("WrittenDate", writtenDate);
+            
+            DBManager.insertData("TourReviews", insertParams);
+        }
 	/*
 	 * End of database interaction methods.
 	 */

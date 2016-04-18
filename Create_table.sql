@@ -134,6 +134,13 @@ and eat some sheeps heads together.
 Disclaimer: The likelihood of finding any northern lights is 
 slim to none. We therefore do not guarantee finding any.',26,'2017-02-12',14,3.6,201,23000,'Depends on weather','Reykjavik','Northern Lights',1,'Halli Icefit');
 
+INSERT INTO Tours(
+	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide4)
+	VALUES(
+	'Reykjavik Walk ','Come with us to see the magnificence of Reykjavik.
+We will be walking into reykjavik most epic sceneries and 
+spectacular sights.',30,'2017-02-12',3,1.2,4,4000,'Reykjavik sights','Downtown Reykjavik','Reykjavik',0,'Villi Siggs');
+
 Create TABLE GuideReviews(
 	Name VARCHAR(50) REFERENCES Guides(Name),
 	ReviewTxt Varchar(255),
