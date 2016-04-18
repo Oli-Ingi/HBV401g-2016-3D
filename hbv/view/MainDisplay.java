@@ -1127,7 +1127,7 @@ public class MainDisplay extends javax.swing.JFrame {
 
     private void tourReviewWriteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourReviewWriteBtnActionPerformed
         // TODO add your handling code here:
-        new WriteReviewDisplay(((Tour)tourList.getSelectedValue()).getName()).setVisible(true);
+        new WriteTourReviewDisplay(((Tour)tourList.getSelectedValue()).getName()).setVisible(true);
     }//GEN-LAST:event_tourReviewWriteBtnActionPerformed
 
     private void tourGuideLab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourGuideLab1MouseClicked
