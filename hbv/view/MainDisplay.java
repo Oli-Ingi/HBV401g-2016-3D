@@ -1136,6 +1136,7 @@ public class MainDisplay extends javax.swing.JFrame {
         guideGenderLab.setText("Gender: "+currentlySelectedTour.getGuides().get(0).getGender());
         guideAgeLab.setText("Age: "+currentlySelectedTour.getGuides().get(0).getAge());
         guideProfileTxtArea.setText(currentlySelectedTour.getGuides().get(0).getProfile());
+        guideProfileTxtArea.setCaretPosition(0);
     }//GEN-LAST:event_tourGuideLab1MouseClicked
 
     private int priceToInt(String priceStr){

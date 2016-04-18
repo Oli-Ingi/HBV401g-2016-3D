@@ -76,7 +76,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="selectedMainCard" alignment="0" max="32767" attributes="0"/>
-                              <Component id="resultsPan" alignment="0" pref="649" max="32767" attributes="0"/>
+                              <Component id="resultsPan" alignment="0" pref="553" max="32767" attributes="0"/>
                               <Component id="searchParamsPan" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -547,7 +547,7 @@
                               <Component id="tourScroller" min="-2" pref="290" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="17" max="32767" attributes="0"/>
+                      <EmptySpace pref="27" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -919,6 +919,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="Names"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tourGuideLab1MouseClicked"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="tourGuideLab2">
                       <Properties>
