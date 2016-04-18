@@ -108,6 +108,16 @@ we will eat marshmallows.',14,'2016-08-06',14,2.2,43,32000,'The Ocean','Husavik'
 INSERT INTO Tours(
 	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
 	VALUES(
+	'Blue lagoon Day Out','Have a nice day out with friends or family 
+enjoying this world famous attraction, the blue lagoon.
+The tour starts with a van picking you up at your hotel, and driving
+you to your destination. Enjoy the blue waters, healthy masks and bar
+then end the day dinning on one of icelands best restaurants, 
+before being driven back to your hotel',10,'2016-07-06',8,4.3,231,18000,'Blue Lagoon','Reykjavik','Nature',1,'Villi Siggs');
+
+INSERT INTO Tours(
+	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
+	VALUES(
 	'Sky on Fire ','Come with us to see the magnificence of the night sky in Iceland.
 We will be riding a bus into the wilderness until we see some 
 spectacular sights in the sky, in which case we will step out
