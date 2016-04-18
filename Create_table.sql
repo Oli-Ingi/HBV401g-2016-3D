@@ -1,6 +1,7 @@
+DROP TABLE IF EXISTS TourDates;
+DROP TABLE IF EXISTS GuideReviews;
+DROP TABLE IF EXISTS TourReviews;
 DROP TABLE IF EXISTS Tours;
-
-
 DROP TABLE IF EXISTS Guides;
 
 CREATE TABLE Guides (
@@ -43,6 +44,12 @@ does is a fascinating sight but dont expect
 him to know a lot of things or answer any
 questions for that matter.');
 
+INSERT INTO Guides(Name,Nickname,Age,Gender,Profile) VALUES('Vilhjamur Sigmudsson','Villi Siggs',22,'Male',
+'Newcomer to the tourguiding world, he is very
+energetic and fun. He will make you more interested
+in icelands nature and history then you ever thought
+you could. ');
+	
 CREATE TABLE Tours (
         Name VARCHAR(50) PRIMARY KEY,
         Description 	TEXT,
@@ -58,7 +65,8 @@ CREATE TABLE Tours (
 	HotelPickup 	BOOLEAN,
 	Guide1		VARCHAR(50) REFERENCES Guides(Nickname),
 	Guide2		VARCHAR(50) REFERENCES Guides(Nickname),
-	Guide3		VARCHAR(50) REFERENCES Guides(Nickname)
+	Guide3		VARCHAR(50) REFERENCES Guides(Nickname),
+	Guide4		VARCHAR(50) REFERENCES Guides(Nickname)
 );
 
 INSERT INTO Tours(
@@ -106,7 +114,7 @@ Afterwards we will have a kids festival on the peer where
 we will eat marshmallows.',14,'2016-08-06',14,2.2,43,32000,'The Ocean','Husavik','Adventure',0,'Halli Icefit');
 
 INSERT INTO Tours(
-	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
+	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide4)
 	VALUES(
 	'Blue lagoon Day Out','Have a nice day out with friends or family 
 enjoying this world famous attraction, the blue lagoon.
@@ -125,3 +133,73 @@ and eat some sheeps heads together.
 
 Disclaimer: The likelihood of finding any northern lights is 
 slim to none. We therefore do not guarantee finding any.',26,'2017-02-12',14,3.6,201,23000,'Depends on weather','Reykjavik','Northern Lights',1,'Halli Icefit');
+
+Create TABLE GuideReviews(
+	Name VARCHAR(50) REFERENCES Guides(Name),
+	ReviewTxt Varchar(255),
+	Writter VARCHAR(50),
+	WrittenDate DATE,
+	Likes INT
+);
+
+Create TABLE TourReviews(
+	Name VARCHAR(50) REFERENCES Guides(Name),
+	ReviewTxt Varchar(255),
+	Writter VARCHAR(50),
+	WrittenDate DATE,
+	Likes INT
+);
+
+
+
+Create Table TourDates (
+	Name VARCHAR(50)  REFERENCES Tours(Name),
+	Date DATE
+);
+
+INSERT INTO TourDates(Name, Date)
+	VALUES("SnowMobile Adventure", '2016-06-22');
+INSERT INTO TourDates(Name, Date)
+	VALUES("SnowMobile Adventure", '2016-07-22');	
+INSERT INTO TourDates(Name, Date)
+	VALUES("SnowMobile Adventure", '2016-08-22');
+	
+INSERT INTO TourDates(Name, Date)
+	VALUES("Silfra scuba diving", '2016-07-12');
+INSERT INTO TourDates(Name, Date)
+	VALUES("Silfra scuba diving", '2016-07-15');
+INSERT INTO TourDates(Name, Date)
+	VALUES("Silfra scuba diving", '2016-07-17');	
+	
+INSERT INTO TourDates(Name, Date)
+	VALUES('Vikings of Thingvellir', '2016-06-24');
+INSERT INTO TourDates(Name, Date)
+	VALUES('Vikings of Thingvellir', '2016-06-28');
+INSERT INTO TourDates(Name, Date)
+	VALUES('Vikings of Thingvellir', '2016-07-01');
+	
+INSERT INTO TourDates(Name, Date)
+	VALUES('Geysers gone wild', '2016-07-12');
+INSERT INTO TourDates(Name, Date)
+	VALUES('Geysers gone wild', '2016-07-13');
+INSERT INTO TourDates(Name, Date)
+	VALUES('Geysers gone wild', '2016-07-14');
+INSERT INTO TourDates(Name, Date)
+	VALUES('Geysers gone wild', '2016-07-15');
+INSERT INTO TourDates(Name, Date)
+	VALUES('Geysers gone wild', '2016-07-16');
+	
+INSERT INTO TourDates(Name, Date)
+	VALUES('Whale killahs!', '2016-08-06');
+INSERT INTO TourDates(Name, Date)
+	VALUES('Whale killahs!', '2016-10-08');
+	
+INSERT INTO TourDates(Name, Date)
+	VALUES('Blue lagoon Day Out', '2016-05-01');
+INSERT INTO TourDates(Name, Date)
+	VALUES('Blue lagoon Day Out', '2016-05-05');
+INSERT INTO TourDates(Name, Date)
+	VALUES('Blue lagoon Day Out', '2016-05-09');
+	
+INSERT INTO TourDates(Name, Date)
+	VALUES('Sky on Fire', '2017-02-12');
