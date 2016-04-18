@@ -9,6 +9,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class DBManager {
@@ -85,7 +87,7 @@ public class DBManager {
 	}
 	
 	// Sendir UPDATE statement til gagnagrunnsins.
-	public static void updateTable(String table, String ColName, String newValue, HashMap<String,Object> whereParams){
+	public static void updateData(String table, String ColName, String newValue, HashMap<String,Object> whereParams){
 		try {
 			setUp();
 			
@@ -102,6 +104,27 @@ public class DBManager {
 		}
 	}
 	
+        public static void insertData(String table, HashMap<String,Object> values){
+            try {
+                //"INSERT INTO tablename(columnNames) VALUES(values);"
+                setUp();
+                StringBuilder cols = new StringBuilder("(");
+                StringBuilder placeHolders = new StringBuilder("(");
+                for(String key: values.keySet()){
+                    cols.append(key+",");
+                    placeHolders.append("?,");
+                }
+                cols.deleteCharAt(cols.length()-1).append(')');
+                placeHolders.deleteCharAt(placeHolders.length()-1).append(')');
+                
+                String prepared = "INSERT INTO "+table+cols.toString()+" VALUES"+placeHolders.toString();
+                
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
 	/*
 	 * Búum til streng fyrir WHERE-hlutann af SQL-fyrirspurn
 	 * sem er á formi sem preparedStatement getur notað, þ.e. með '?' sem
@@ -118,18 +141,20 @@ public class DBManager {
 		
 		return prepWhere.toString();
 	}
+        
+        
 	
 	/*
 	 * Stingum inn search parametrunum í placeholder-ana í
 	 * prepared statementinu. index segir til um hvaða placeholder 
 	 * er byrjað á.
 	 */
-	private static void bindParams(int index,HashMap<String,Object> searchParams) throws SQLException{
-		for(String key: searchParams.keySet()){
+	private static void bindParams(int index,HashMap<String,Object> params) throws SQLException{
+		for(String key: params.keySet()){
 			if(key.contains("LIKE")){
-				pst.setString(index, "%"+searchParams.get(key)+"%");
+				pst.setString(index, "%"+params.get(key)+"%");
 			}else{
-				pst.setString(index, String.valueOf(searchParams.get(key)));
+				pst.setString(index, String.valueOf(params.get(key)));
 			}
 			index++;
 		}

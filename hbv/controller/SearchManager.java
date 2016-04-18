@@ -75,7 +75,7 @@ public class SearchManager {
 		
 		// Lækkum sætafjöldann til að tákna að bókun hafi átt sér stað að því gefnu að nægilegt sætamagn sé í boði.
 		if(seats>bookedSeats){
-			DBManager.updateTable("Tours", "SeatsAvailable", String.valueOf(seats-bookedSeats), whereParams);
+			DBManager.updateData("Tours", "SeatsAvailable", String.valueOf(seats-bookedSeats), whereParams);
 		} else throw new IllegalArgumentException("Too few seats available.");
 		
 		// Ef að túrinn er í núverandi tours lista, update-um við hann líka.
@@ -102,8 +102,8 @@ public class SearchManager {
 		float rating = (float)expanded/amountOfRatings;
 		
 		// Skrifum fjölda einkunna ásamt nýju einkunninni í gagnagrunninn.
-		DBManager.updateTable("Tours", "NumberOfRatings", String.valueOf(amountOfRatings), whereParams);
-		DBManager.updateTable("Tours", "Rating", String.valueOf(rating), whereParams);
+		DBManager.updateData("Tours", "NumberOfRatings", String.valueOf(amountOfRatings), whereParams);
+		DBManager.updateData("Tours", "Rating", String.valueOf(rating), whereParams);
 		
 		// Uppfærum túrinn ef hann er í núverandi lista.
 		for(Tour tour: tours){
