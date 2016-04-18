@@ -403,6 +403,12 @@ public class MainDisplay extends javax.swing.JFrame {
         orderLab.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         orderLab.setText("Order by: ");
 
+        orderCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderComboActionPerformed(evt);
+            }
+        });
+
         resultsLab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         resultsLab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         resultsLab.setText("Search results:");
@@ -1035,30 +1041,33 @@ public class MainDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_tourListValueChanged
 
     private void tourStarsLabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourStarsLabMousePressed
-
-        if(!((Tour)tourList.getSelectedValue()).isRated()){
-            int part = tourStarsLab.getWidth()/5;
-            ImageIcon stars;
-            if(evt.getX()<part*1){
-                stars = new ImageIcon(getClass().getResource("/Images/1star.png"));
-                ratingChosen = 1;
-            } 
-            else if(evt.getX()<part*2){
-                stars = new ImageIcon(getClass().getResource("/Images/2star.png"));
-                ratingChosen = 2;
+        try{
+            if(!((Tour)tourList.getSelectedValue()).isRated()){
+                int part = tourStarsLab.getWidth()/5;
+                ImageIcon stars;
+                if(evt.getX()<part*1){
+                    stars = new ImageIcon(getClass().getResource("/Images/1star.png"));
+                    ratingChosen = 1;
+                } 
+                else if(evt.getX()<part*2){
+                    stars = new ImageIcon(getClass().getResource("/Images/2star.png"));
+                    ratingChosen = 2;
+                }
+                else if(evt.getX()<part*3){
+                    stars = new ImageIcon(getClass().getResource("/Images/3star.png"));
+                    ratingChosen = 3;
+                }
+                else if(evt.getX()<part*4){
+                    stars = new ImageIcon(getClass().getResource("/Images/4star.png"));
+                    ratingChosen = 4;
+                }
+                else{
+                    stars = new ImageIcon(getClass().getResource("/Images/5star.png"));
+                }
+                tourStarsLab.setIcon(stars);
             }
-            else if(evt.getX()<part*3){
-                stars = new ImageIcon(getClass().getResource("/Images/3star.png"));
-                ratingChosen = 3;
-            }
-            else if(evt.getX()<part*4){
-                stars = new ImageIcon(getClass().getResource("/Images/4star.png"));
-                ratingChosen = 4;
-            }
-            else{
-                stars = new ImageIcon(getClass().getResource("/Images/5star.png"));
-            }
-            tourStarsLab.setIcon(stars);
+        } catch(NullPointerException e){
+            
         }
     }//GEN-LAST:event_tourStarsLabMousePressed
 
@@ -1068,6 +1077,35 @@ public class MainDisplay extends javax.swing.JFrame {
             tourReviewRateBtn.setEnabled(true);
         }
     }//GEN-LAST:event_tourStarsLabMouseReleased
+
+    private void orderComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderComboActionPerformed
+        
+        try{
+
+            if(orderCombo.getSelectedItem().equals("Name")){
+                SearchManager.sortByName();
+            }
+            else if(orderCombo.getSelectedItem().equals("Date")){
+                SearchManager.sortByDate();
+            }
+            else if(orderCombo.getSelectedItem().equals("Type")){
+                SearchManager.sortByType();
+            }
+            else if(orderCombo.getSelectedItem().equals("Rating")){
+                SearchManager.sortByRating();
+            }
+            else if(orderCombo.getSelectedItem().equals("Price")){
+                SearchManager.sortByPrice();
+            }
+            tourModel.clear();
+            for(Tour tour: tours){
+                    tourModel.addElement(tour);
+            }
+        }
+        catch(NullPointerException e){
+            
+        }
+    }//GEN-LAST:event_orderComboActionPerformed
 
     private int priceToInt(String priceStr){
         StringBuilder priceB = new StringBuilder(priceStr);
