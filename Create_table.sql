@@ -1,3 +1,6 @@
+
+
+
 DROP TABLE IF EXISTS TourDates;
 DROP TABLE IF EXISTS GuideReviews;
 DROP TABLE IF EXISTS TourReviews;
@@ -44,10 +47,10 @@ does is a fascinating sight but dont expect
 him to know a lot of things or answer any
 questions for that matter.');
 
-INSERT INTO Guides(Name,Nickname,Age,Gender,Profile) VALUES('Vilhjamur Sigmudsson','Villi Siggs',22,'Male',
+INSERT INTO Guides(Name,Nickname,Age,Gender,Profile) VALUES('Vilhjalmur Sigmundsson','Villi Siggs',22,'Male',
 'Newcomer to the tourguiding world, he is very
 energetic and fun. He will make you more interested
-in icelands nature and history then you ever thought
+in icelands nature and history than you ever thought
 you could. ');
 	
 CREATE TABLE Tours (
@@ -65,8 +68,7 @@ CREATE TABLE Tours (
 	HotelPickup 	BOOLEAN,
 	Guide1		VARCHAR(50) REFERENCES Guides(Nickname),
 	Guide2		VARCHAR(50) REFERENCES Guides(Nickname),
-	Guide3		VARCHAR(50) REFERENCES Guides(Nickname),
-	Guide4		VARCHAR(50) REFERENCES Guides(Nickname)
+	Guide3		VARCHAR(50) REFERENCES Guides(Nickname)
 );
 
 INSERT INTO Tours(
@@ -114,7 +116,7 @@ Afterwards we will have a kids festival on the peer where
 we will eat marshmallows.',14,'2016-08-06',14,2.2,43,32000,'The Ocean','Husavik','Adventure',0,'Halli Icefit');
 
 INSERT INTO Tours(
-	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide4)
+	Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
 	VALUES(
 	'Blue lagoon Day Out','Have a nice day out with friends or family 
 enjoying this world famous attraction, the blue lagoon.

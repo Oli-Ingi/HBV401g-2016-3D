@@ -1015,7 +1015,7 @@ public class MainDisplay extends javax.swing.JFrame {
                 tourDateLab.setText("Date: "+selected.getDate());
                 tourDepartureLab.setText("Departure from: "+selected.getDepartureLocation());
                 tourDestinationLab.setText("Destination: "+selected.getDestination());
-                tourDurationLab.setText("Duration: "+selected.getDuration());
+                tourDurationLab.setText("Duration: "+selected.getDuration()+" hrs.");
                 tourSeatsLab.setText("Available seats: "+String.valueOf(selected.getSeatsAvailable()));
                 if(selected.getPickup()) tourPickupLab.setText("Hotel pickup: Yes");
                 else tourPickupLab.setText("Hotel pickup: No");

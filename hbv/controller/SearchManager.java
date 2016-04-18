@@ -112,6 +112,7 @@ public class SearchManager {
 			}
 		}
 	}
+
         
         public static void loadGuides(Tour tour){
             HashMap<String,Object> whereParams = new HashMap<>();

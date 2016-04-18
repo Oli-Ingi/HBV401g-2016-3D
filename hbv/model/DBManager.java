@@ -106,19 +106,21 @@ public class DBManager {
 	
         public static void insertData(String table, HashMap<String,Object> values){
             try {
-                //"INSERT INTO tablename(columnNames) VALUES(values);"
                 setUp();
+                
                 StringBuilder cols = new StringBuilder("(");
                 StringBuilder placeHolders = new StringBuilder("(");
                 for(String key: values.keySet()){
-                    cols.append(key+",");
+                    cols.append(key).append(",");
                     placeHolders.append("?,");
                 }
                 cols.deleteCharAt(cols.length()-1).append(')');
                 placeHolders.deleteCharAt(placeHolders.length()-1).append(')');
                 
                 String prepared = "INSERT INTO "+table+cols.toString()+" VALUES"+placeHolders.toString();
-                
+                pst = conn.prepareStatement(prepared);
+                bindParams(1,values);
+                pst.execute();
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             }
