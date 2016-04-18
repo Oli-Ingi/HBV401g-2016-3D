@@ -40,6 +40,7 @@ public class MainDisplay extends javax.swing.JFrame {
     DefaultListModel<Tour> tourModel;
     private boolean rated;
     private int ratingChosen;
+    private Tour currentlySelectedTour;
     
     /**
      * Creates new form BackupDisplay
@@ -326,7 +327,7 @@ public class MainDisplay extends javax.swing.JFrame {
                             .addComponent(durationToCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(toDateChooser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(priceToCombo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         searchParamsPanLayout.setVerticalGroup(
             searchParamsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -548,6 +549,11 @@ public class MainDisplay extends javax.swing.JFrame {
         tourGuideLab1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tourGuideLab1.setForeground(new java.awt.Color(0, 0, 255));
         tourGuideLab1.setText("Names");
+        tourGuideLab1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tourGuideLab1MouseClicked(evt);
+            }
+        });
 
         tourGuideLab2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tourGuideLab2.setForeground(new java.awt.Color(0, 0, 255));
@@ -687,7 +693,7 @@ public class MainDisplay extends javax.swing.JFrame {
                     .addComponent(tourReviewSep, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tourReviewScroller)
                     .addGroup(tourReviewsPanLayout.createSequentialGroup()
-                        .addComponent(tourReviewWriteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                        .addComponent(tourReviewWriteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tourStarsSep, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1017,6 +1023,7 @@ public class MainDisplay extends javax.swing.JFrame {
             if(nothingChild.isShowing()) ((CardLayout)selectedMainCard.getLayout()).next(selectedMainCard);
             
             Tour selected = (Tour)tourList.getSelectedValue();
+            currentlySelectedTour = selected;
             if(selected!=null){
                 secondaryTitleLab.setText(selected.getName());
                 tourTypeLab.setText("Type: "+selected.getType());
@@ -1115,14 +1122,21 @@ public class MainDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_orderComboActionPerformed
 
     private void guideReviewWriteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guideReviewWriteBtnActionPerformed
-        // TODO add your handling code here:
-        
+        // TODO add your handling code here
     }//GEN-LAST:event_guideReviewWriteBtnActionPerformed
 
     private void tourReviewWriteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourReviewWriteBtnActionPerformed
         // TODO add your handling code here:
-        new WriteTourReviewDisplay(((Tour)tourList.getSelectedValue()).getName()).setVisible(true);
+        new WriteReviewDisplay(((Tour)tourList.getSelectedValue()).getName()).setVisible(true);
     }//GEN-LAST:event_tourReviewWriteBtnActionPerformed
+
+    private void tourGuideLab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourGuideLab1MouseClicked
+        ((CardLayout)selectedMainCard.getLayout()).next(selectedMainCard);
+        guideNameLab.setText("Full name: "+currentlySelectedTour.getGuides().get(0).getName());
+        guideGenderLab.setText("Gender: "+currentlySelectedTour.getGuides().get(0).getGender());
+        guideAgeLab.setText("Age: "+currentlySelectedTour.getGuides().get(0).getAge());
+        guideProfileTxtArea.setText(currentlySelectedTour.getGuides().get(0).getProfile());
+    }//GEN-LAST:event_tourGuideLab1MouseClicked
 
     private int priceToInt(String priceStr){
         StringBuilder priceB = new StringBuilder(priceStr);
