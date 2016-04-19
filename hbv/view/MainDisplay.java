@@ -10,22 +10,15 @@ import hbv.model.*;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.LayoutManager;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.NoSuchElementException;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -1043,8 +1036,9 @@ public class MainDisplay extends javax.swing.JFrame {
     private void tourListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_tourListValueChanged
         if(!evt.getValueIsAdjusting()){
             if(nothingChild.isShowing()) ((CardLayout)selectedMainCard.getLayout()).next(selectedMainCard);
-            if((Tour)tourList.getSelectedValue()!=null) currentTour = (Tour)tourList.getSelectedValue();
-            if(currentTour!=null && ((Tour)tourList.getSelectedValue()!=null)){
+            if((Tour)tourList.getSelectedValue()!=null){
+                currentTour = (Tour)tourList.getSelectedValue();
+                
                 secondaryTitleLab.setText(currentTour.getName());
                 tourTypeLab.setText("Type: "+currentTour.getType());
                 tourPriceLab.setText("Price: "+currentTour.getPrice()+" kr.");
@@ -1070,6 +1064,8 @@ public class MainDisplay extends javax.swing.JFrame {
                     tourGuideLab2.setText(guides.get(1).getNickName());
                     tourGuideLab3.setText(guides.get(2).getNickName());
                 }
+                if(currentTour.getReviews().isEmpty()) SearchManager.loadTourReviews(currentTour);
+                
                 tourStarsLab.setIcon(new ImageIcon(getClass().getResource("/Images/"+currentTour.getUserRating()+"star.png")));
             }
         }
@@ -1204,16 +1200,21 @@ public class MainDisplay extends javax.swing.JFrame {
                 int index, boolean isSelected, boolean cellHasFocus) {
             Review review = (Review) value;
             ReviewCell reviewEntry = new ReviewCell(review.getText(), review.getWriter(), review.getText());
-            
+            if (isSelected){
+                
+            }
             reviewEntry.setBorder(BorderFactory.createEtchedBorder());
-            reviewEntry.setBackground(Color.white);
-            reviewEntry.setBackground(Color.black);
+            if (isSelected) {
+                reviewEntry.setBackground(new Color(0,100,200,50));
+            } else {
+                reviewEntry.setBackground(Color.white);
+                reviewEntry.setLettersColor(Color.black);
+            }
             return reviewEntry;
         }
     }
     
     class TourCellRenderer extends JLabel implements ListCellRenderer {
-
         public TourCellRenderer() {
             setOpaque(true);
         }

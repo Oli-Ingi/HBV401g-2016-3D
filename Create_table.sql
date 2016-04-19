@@ -1,5 +1,5 @@
-
-
+PRAGMA FOREIGN_KEYS=ON;
+BEGIN TRANSACTION;
 
 DROP TABLE IF EXISTS TourDates;
 DROP TABLE IF EXISTS GuideReviews;
@@ -124,44 +124,60 @@ then end the day dinning on one of icelands best restaurants,
 before being driven back to your hotel',8,4.3,231,18000,'Blue Lagoon','Reykjavik','Nature',1,'Villi Siggs');
 
 INSERT INTO Tours(
-	Name,Description,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
+	Name,Description,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1,Guide2)
 	VALUES(
-	'Sky on Fire ','Come with us to see the magnificence of the night sky in Iceland.
+	'Sky on Fire','Come with us to see the magnificence of the night sky in Iceland.
 We will be riding a bus into the wilderness until we see some 
 spectacular sights in the sky, in which case we will step out
 and eat some sheeps heads together.
 
 Disclaimer: The likelihood of finding any northern lights is 
-slim to none. We therefore do not guarantee finding any.',14,3.6,201,23000,'Depends on weather','Reykjavik','Northern Lights',1,'Halli Icefit');
+slim to none. We therefore do not guarantee finding any.',14,3.6,201,23000,'Depends on weather','Reykjavik','Northern Lights',1,'Halli Icefit','Anna Sigga');
 
 INSERT INTO Tours(
 	Name,Description,Duration,Rating,NumberOfRatings,Price,Destination,Departure,Type,HotelPickup,Guide1)
 	VALUES(
-	'Reykjavik Walk ','Come with us to see the magnificence of Reykjavik.
+	'Reykjavik Walk','Come with us to see the magnificence of Reykjavik.
 We will be walking into reykjavik most epic sceneries and 
 spectacular sights.',3,1.2,4,4000,'Reykjavik sights','Downtown Reykjavik','Reykjavik',0,'Villi Siggs');
 
 Create TABLE GuideReviews(
 	Name VARCHAR(50) REFERENCES Guides(Name),
-	ReviewTxt Varchar(255),
-	Writter VARCHAR(50),
-	WrittenDate DATE,
-	Likes INT
+	ReviewTitle 	VARCHAR(150),
+	ReviewTxt 	TEXT,
+	Writer		VARCHAR(50),
+	WrittenDate 	DATE,
+	Likes 		INT
 );
+
+INSERT INTO GuideReviews(Name,ReviewTitle,ReviewTxt,Writer,WrittenDate,Likes) VALUES('Vilhjalmur Sigmundsson','This man is a terrible human being!',
+'He is a horrible guide. We went with him ona whale killing
+tour and he didnt find any whales for the first part.
+He also didnt bring any food for people and he didnt
+warn us that it was going to be freezing out there on 
+the ocean.. He also didnt talk to anyone or answer any
+questions .... asshole', 'Johnny Mormon', '2015-10-22',7);
 
 Create TABLE TourReviews(
-	Name VARCHAR(50) REFERENCES Guides(Name),
-	ReviewTxt Varchar(255),
-	Writter VARCHAR(50),
-	WrittenDate DATE,
-	Likes INT
+	Name VARCHAR(50) REFERENCES Tours(Name),
+	ReviewTitle 	VARCHAR(150),
+	ReviewTxt 	TEXT,
+	Writer 		VARCHAR(50),
+	WrittenDate 	DATE,
+	Likes 		INT
 );
 
+INSERT INTO TourReviews(Name,ReviewTitle,ReviewTxt,Writer,WrittenDate,Likes) VALUES('Whale killahs!','Oh my god.. This was terrible!!',
+'This tour is the worst thing I have ever experienced!
+We didnt find any whales to eat and there was
+nothing else provided to eat so we were just starving
+while we sailed the seas in freezing weather.. and
+it was snowing because, you know, its Iceland..!','Johnny Mormon','23-04-2015',4); 
 
 
 Create Table TourDates (
-	Name VARCHAR(50)  REFERENCES Tours(Name),
-	Date DATE,
+	Name 		VARCHAR(50)  REFERENCES Tours(Name),
+	Date 		DATE,
 	SeatsAvailable INT
 );
 
@@ -211,3 +227,5 @@ INSERT INTO TourDates(Name, Date,SeatsAvailable)
 	
 INSERT INTO TourDates(Name, Date,SeatsAvailable)
 	VALUES('Sky on Fire', '2017-02-12',33);
+
+COMMIT;

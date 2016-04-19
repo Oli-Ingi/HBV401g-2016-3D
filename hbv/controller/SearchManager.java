@@ -115,21 +115,48 @@ public class SearchManager {
 	}
 
         
-        public static void loadGuides(Tour tour){
+        public static void loadGuides(Tour tour) {
             HashMap<String,Object> whereParams = new HashMap<>();
             whereParams.put("Name=", tour.getName());
-            String[][] tourData = DBManager.getData("Guide1,Guide2,Guide3", "Tours", whereParams);
+            String[][] tourData = null;
+            try{
+                tourData = DBManager.getData("Guide1,Guide2,Guide3", "Tours", whereParams);
+            } catch (NoSuchElementException e){
+                System.out.println(e.getMessage());
+            }
             
             for (int i = 0; i<tourData[0].length;i++) {
                 if (tourData[0][i] != null) {
                     whereParams.clear();
                     whereParams.put("NickName=", tourData[0][i]);
-                    String[][] guideData = DBManager.getData("*", "Guides", whereParams);
+                    String[][] guideData = null;
+                    try{
+                        guideData = DBManager.getData("*", "Guides", whereParams);
+                    } catch (NoSuchElementException e){
+                        System.out.println(e.getMessage());
+                    }
                     for(int j = 0; j<guideData.length;j++){
                         tour.setGuide(new Guide(guideData[j][0],guideData[j][1],Integer.parseInt(guideData[j][2]),guideData[j][3],guideData[j][4]));
                     }
                 }
             }
+        }
+        
+        public static void loadTourReviews(Tour tour){
+            HashMap<String,Object> whereParams = new HashMap<>();
+            whereParams.put("Tours.Name=", tour.getName());
+            String[][] reviewData = null;
+            try{
+                reviewData = DBManager.getData("ReviewTxt,Writer,WrittenDate", "Tours JOIN TourReviews ON Tours.Name=TourReviews.Name", whereParams);
+                
+                for(int i = 0; i<reviewData.length;i++){
+                    tour.setReviews(new TourReview(reviewData[i][0],reviewData[i][1],reviewData[i][2]));
+            }
+            } catch (NoSuchElementException e){
+                System.out.println(e.getMessage());
+            }
+            
+
         }
         
         public static void addTourReview(String tourName, String writter, String reviewText, Date writtenDate){
@@ -149,7 +176,7 @@ public class SearchManager {
             insertParams.put("Writter", writter);
             insertParams.put("WrittenDate", writtenDate);
             
-            DBManager.insertData("TourReviews", insertParams);
+            DBManager.insertData("GuideReviews", insertParams);
         }
 	/*
 	 * End of database interaction methods.

@@ -1,12 +1,12 @@
 package hbv.model;
 
-import java.sql.Date;
+
 
 public abstract class Review {
 
 	protected String reviewText;
 	protected String writer;
-	protected Date dateOfWriting;
+	protected String dateOfWriting;
 	protected int likes;
 	
 	
@@ -18,7 +18,7 @@ public abstract class Review {
 		return writer;
 	}
 	
-	public Date getDate(){
+	public String getDate(){
 		return dateOfWriting;
 	}
 	
