@@ -24,6 +24,7 @@ public class WriteGuideReviewDisplay extends javax.swing.JFrame {
         guideName = name;
         this.tour = tour;
         initExtra();
+        this.setLocationRelativeTo(null);
     }
     
     private void initExtra(){

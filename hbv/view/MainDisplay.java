@@ -564,7 +564,7 @@ public class MainDisplay extends javax.swing.JFrame {
             }
         });
 
-        tourGuideLab3.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        tourGuideLab3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tourGuideLab3.setForeground(new java.awt.Color(0, 0, 255));
         tourGuideLab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -792,17 +792,16 @@ public class MainDisplay extends javax.swing.JFrame {
         guideProfilePan.setLayout(guideProfilePanLayout);
         guideProfilePanLayout.setHorizontalGroup(
             guideProfilePanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(guideProfilePanLayout.createSequentialGroup()
-                .addGap(0, 11, Short.MAX_VALUE)
-                .addComponent(guideProfileScroller, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, guideProfilePanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(guideProfileScroller)
+                .addContainerGap())
         );
         guideProfilePanLayout.setVerticalGroup(
             guideProfilePanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(guideProfilePanLayout.createSequentialGroup()
-                .addGap(0, 1, Short.MAX_VALUE)
-                .addComponent(guideProfileScroller, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
+                .addComponent(guideProfileScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         guideReviewsPan.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Guide Reviews", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
@@ -830,9 +829,9 @@ public class MainDisplay extends javax.swing.JFrame {
         guideReviewsPanLayout.setVerticalGroup(
             guideReviewsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(guideReviewsPanLayout.createSequentialGroup()
-                .addComponent(guideReviewScroller, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(guideReviewScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(guideReviewWriteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(guideReviewWriteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -864,10 +863,10 @@ public class MainDisplay extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(guideDetailsPan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(guideProfilePan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(guideProfilePan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(guideReviewsPan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(guideBackBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -937,8 +936,8 @@ public class MainDisplay extends javax.swing.JFrame {
         */
          for(Tour tourInList: tours){
              if (tourInList.getName().equals(currentTour.getName())){
-                 currentTour.setUserRating(ratingChosen);
-                 currentTour.setRated();
+                 tourInList.setUserRating(ratingChosen);
+                 tourInList.setRated();
              }
          }
          tourReviewRateBtn.setEnabled(false);
@@ -1031,9 +1030,8 @@ public class MainDisplay extends javax.swing.JFrame {
                     tourGuideLab2.setText(guides.get(1).getNickName());
                     tourGuideLab3.setText(guides.get(2).getNickName());
                 }
-                if(currentTour.getReviews().isEmpty()) SearchManager.loadTourReviews(currentTour);
                 tourReviewModel.clear();
-                SearchManager.loadTourReviews(currentTour);
+                if(currentTour.getReviews().isEmpty()) SearchManager.loadTourReviews(currentTour);
                 for(Review tourRev: currentTour.getReviews()){
                     tourReviewModel.addElement(tourRev);
                 }

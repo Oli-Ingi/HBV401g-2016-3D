@@ -50,9 +50,6 @@ public class SearchManager {
 		// Bý til lista af Tour hlutum miðað við leitarskilyrðin.
 		String[][] dbData = DBManager.getData("Tours.Name,Description,SeatsAvailable,Date,Duration,Rating,NumberOfRatings,"
                         + "Price,Destination,Departure,Type,HotelPickup","Tours JOIN TourDates on Tours.Name=TourDates.Name",searchParams);
-                for(int i=0; i<dbData[0].length;i++){
-                    System.out.println(dbData[0][i]);
-                }
                 
 		// hreinsa gömlu leitarniðurstöðurnar úr tours (ef einhverjar eru).
 		tours.clear();
@@ -189,7 +186,6 @@ public class SearchManager {
             insertParams.put("WrittenDate", writtenDate);
             
             DBManager.insertData("GuideReviews", insertParams);
-            
         }
 	/*
 	 * End of database interaction methods.
@@ -245,18 +241,18 @@ public class SearchManager {
      */
     
     
-	/*
-	 * Testing methods : (only for unit testing)
-	 */
+    /*
+     * Testing methods : (only for unit testing)
+     */
     public static boolean isToursEmpty(){
         return false;
     }
 	public static ArrayList<Tour> getTours(){
 		return tours;
 	}
-	/*
-	 * End of testing methods.
-	 */
+    /*
+     * End of testing methods.
+     */
 	
 	
 }
