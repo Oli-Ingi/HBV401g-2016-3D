@@ -16,10 +16,12 @@ import javax.swing.JLabel;
 public class WriteTourReviewDisplay extends javax.swing.JFrame {
 
     private static String tourName;
+    private static MainDisplay display;
     /**
      * Creates new form WriteReviewDisplay
      */
-    public WriteTourReviewDisplay(String name) {
+    public WriteTourReviewDisplay(String name, MainDisplay display) {
+        this.display = display;
         initComponents();
         this.setLocationRelativeTo(null);
         tourName = name;
@@ -33,6 +35,7 @@ public class WriteTourReviewDisplay extends javax.swing.JFrame {
         jLabel1.setHorizontalTextPosition(JLabel.CENTER);
         jLabel1.setVerticalTextPosition(JLabel.CENTER);
         
+        
     }
 
     /**
@@ -45,7 +48,7 @@ public class WriteTourReviewDisplay extends javax.swing.JFrame {
     private void initComponents() {
 
         submitButton = new javax.swing.JButton();
-        reviewTextField = new javax.swing.JTextField();
+        reviewTextField = new javax.swing.JTextArea();
         tourNameLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
@@ -119,6 +122,7 @@ public class WriteTourReviewDisplay extends javax.swing.JFrame {
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
         SearchManager.addTourReview(tourName, "Title temp",nameTextField.getText(), reviewTextField.getText(), new Date((long)System.currentTimeMillis()));
+        display.refreshReviewsList();
         this.dispose();
         
     }//GEN-LAST:event_submitButtonActionPerformed
@@ -154,7 +158,7 @@ public class WriteTourReviewDisplay extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new WriteTourReviewDisplay(tourName).setVisible(true);
+                new WriteTourReviewDisplay(tourName,display).setVisible(true);
             }
         });
     }
@@ -163,7 +167,7 @@ public class WriteTourReviewDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField nameTextField;
-    private javax.swing.JTextField reviewTextField;
+    private javax.swing.JTextArea reviewTextField;
     private javax.swing.JButton submitButton;
     private javax.swing.JLabel tourNameLabel;
     // End of variables declaration//GEN-END:variables

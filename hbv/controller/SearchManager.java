@@ -71,7 +71,7 @@ public class SearchManager {
 		HashMap<String,Object> whereParams = new HashMap<>();
 		whereParams.put("Name=", tour.getName());
                 whereParams.put("Date=", tour.getDate());
-		String[][] seatData = DBManager.getData("SeatsAvailable", "Tours JOIN TourDates on Tours.Name=TourDates.Name", whereParams);
+		String[][] seatData = DBManager.getData("SeatsAvailable", "TourDates", whereParams);
 		int seats = Integer.parseInt(seatData[0][0]);
 		if(bookedSeats<0) throw new IllegalArgumentException("Second input parameter must be positive.");
 		

@@ -36,7 +36,7 @@ public class MainDisplay extends javax.swing.JFrame {
     private boolean rated;
     private int ratingChosen;
     private Tour currentTour;
-    private Guide currentlySelectedGuide;
+    private Guide currentGuide;
     
     /**
      * Creates new form BackupDisplay
@@ -86,6 +86,7 @@ public class MainDisplay extends javax.swing.JFrame {
         tourList.setCellRenderer(new TourCellRenderer());
         tourReviewList.setCellRenderer(new TourReviewCellRenderer());
         rated = false;
+        bookBtn.setVisible(false);
         
     }
     
@@ -147,6 +148,7 @@ public class MainDisplay extends javax.swing.JFrame {
         mainTitleLab = new javax.swing.JLabel();
         secondaryTitlePan = new javax.swing.JPanel();
         secondaryTitleLab = new javax.swing.JLabel();
+        bookBtn = new javax.swing.JButton();
         selectedSep = new javax.swing.JSeparator();
         selectedMainCard = new javax.swing.JPanel();
         nothingChild = new javax.swing.JPanel();
@@ -484,17 +486,30 @@ public class MainDisplay extends javax.swing.JFrame {
         secondaryTitleLab.setForeground(new java.awt.Color(0, 0, 255));
         secondaryTitleLab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        bookBtn.setText("Book now!");
+        bookBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout secondaryTitlePanLayout = new javax.swing.GroupLayout(secondaryTitlePan);
         secondaryTitlePan.setLayout(secondaryTitlePanLayout);
         secondaryTitlePanLayout.setHorizontalGroup(
             secondaryTitlePanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(secondaryTitleLab, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+            .addGroup(secondaryTitlePanLayout.createSequentialGroup()
+                .addGap(97, 97, 97)
+                .addComponent(bookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         secondaryTitlePanLayout.setVerticalGroup(
             secondaryTitlePanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(secondaryTitlePanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(secondaryTitleLab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(secondaryTitleLab, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(bookBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -784,6 +799,7 @@ public class MainDisplay extends javax.swing.JFrame {
 
         guideProfilePan.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Guide Profile", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
+        guideProfileTxtArea.setEditable(false);
         guideProfileTxtArea.setColumns(20);
         guideProfileTxtArea.setRows(5);
         guideProfileScroller.setViewportView(guideProfileTxtArea);
@@ -1030,11 +1046,8 @@ public class MainDisplay extends javax.swing.JFrame {
                     tourGuideLab2.setText(guides.get(1).getNickName());
                     tourGuideLab3.setText(guides.get(2).getNickName());
                 }
-                tourReviewModel.clear();
-                if(currentTour.getReviews().isEmpty()) SearchManager.loadTourReviews(currentTour);
-                for(Review tourRev: currentTour.getReviews()){
-                    tourReviewModel.addElement(tourRev);
-                }
+                refreshReviewsList();
+                bookBtn.setVisible(true);
                 
                 tourStarsLab.setIcon(new ImageIcon(getClass().getResource("/Images/"+currentTour.getUserRating()+"star.png")));
             }
@@ -1104,12 +1117,12 @@ public class MainDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_orderComboActionPerformed
 
     private void guideReviewWriteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guideReviewWriteBtnActionPerformed
-        new WriteGuideReviewDisplay(currentlySelectedGuide.getName(),currentTour).setVisible(true);
+        new WriteGuideReviewDisplay(currentGuide.getName(),currentTour).setVisible(true);
     }//GEN-LAST:event_guideReviewWriteBtnActionPerformed
 
     private void tourReviewWriteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourReviewWriteBtnActionPerformed
 
-        if(currentTour!=null) new WriteTourReviewDisplay(currentTour.getName()).setVisible(true);
+        if(currentTour!=null) new WriteTourReviewDisplay(currentTour.getName(),this).setVisible(true);
     }//GEN-LAST:event_tourReviewWriteBtnActionPerformed
 
     private void tourGuideLab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourGuideLab1MouseClicked
@@ -1117,6 +1130,7 @@ public class MainDisplay extends javax.swing.JFrame {
         if(currentTour!=null && currentTour.getGuides().size()>0){
             setGuideInfo(0);
             secondaryTitleLab.setText(tourGuideLab1.getText());
+            bookBtn.setVisible(false);
         }
     }//GEN-LAST:event_tourGuideLab1MouseClicked
 
@@ -1125,6 +1139,7 @@ public class MainDisplay extends javax.swing.JFrame {
         if(currentTour!=null && currentTour.getGuides().size()>1){
             setGuideInfo(1);
             secondaryTitleLab.setText(tourGuideLab2.getText());
+            bookBtn.setVisible(false);
         }
     }//GEN-LAST:event_tourGuideLab2MouseClicked
 
@@ -1133,6 +1148,7 @@ public class MainDisplay extends javax.swing.JFrame {
         if(currentTour!=null && currentTour.getGuides().size()>2){
             setGuideInfo(2);
             secondaryTitleLab.setText(tourGuideLab3.getText());
+            bookBtn.setVisible(false);
         }
     }//GEN-LAST:event_tourGuideLab3MouseClicked
 
@@ -1140,12 +1156,27 @@ public class MainDisplay extends javax.swing.JFrame {
 
         ((CardLayout)selectedMainCard.getLayout()).previous(selectedMainCard);
         secondaryTitleLab.setText(currentTour.getName());
+        bookBtn.setVisible(true);
     }//GEN-LAST:event_guideBackBtnActionPerformed
+
+    private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
+        
+        if(currentTour != null){
+            try{
+                SearchManager.bookTourSeats(currentTour, 1);
+            tourSeatsLab.setText("Available seats: "+String.valueOf(currentTour.getSeatsAvailable()));
+            } catch (IllegalArgumentException e){
+                JOptionPane.showMessageDialog(this, "Sorry, there are too few seats available for this tour.");
+            }
+            
+            
+        }
+    }//GEN-LAST:event_bookBtnActionPerformed
 
     private void setGuideInfo(int guideNum){
         ((CardLayout)selectedMainCard.getLayout()).next(selectedMainCard);
         guideNameLab.setText("Full name: "+currentTour.getGuides().get(guideNum).getName());
-        currentlySelectedGuide = currentTour.getGuides().get(guideNum);
+        currentGuide = currentTour.getGuides().get(guideNum);
         guideGenderLab.setText("Gender: "+currentTour.getGuides().get(guideNum).getGender());
         guideAgeLab.setText("Age: "+currentTour.getGuides().get(guideNum).getAge());
         guideProfileTxtArea.setText(currentTour.getGuides().get(guideNum).getProfile());
@@ -1172,6 +1203,14 @@ public class MainDisplay extends javax.swing.JFrame {
             
         build.append(" kr.");
         return build.toString();
+    }
+    
+    public void refreshReviewsList(){
+        tourReviewModel.clear();
+        if(currentTour.getReviews().isEmpty()) SearchManager.loadTourReviews(currentTour);
+        for(Review tourRev: currentTour.getReviews()){
+            tourReviewModel.addElement(tourRev);
+        }
     }
     
     class TourReviewCellRenderer extends JLabel implements ListCellRenderer {
@@ -1258,6 +1297,7 @@ public class MainDisplay extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backgroundPan;
+    private javax.swing.JButton bookBtn;
     private javax.swing.JLabel dateFromLab;
     private javax.swing.JLabel dateLab;
     private javax.swing.JLabel dateToLab;

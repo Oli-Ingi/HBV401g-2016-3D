@@ -46,6 +46,7 @@ public class WriteGuideReviewDisplay extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        titleTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -63,6 +64,8 @@ public class WriteGuideReviewDisplay extends javax.swing.JFrame {
         nameTextField.setText("name");
 
         jLabel2.setText("Name:");
+
+        titleTextField.setText("title");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,9 +89,10 @@ public class WriteGuideReviewDisplay extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(reviewTextField)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel2)
+                                    .addComponent(nameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                                    .addComponent(titleTextField))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -103,19 +107,21 @@ public class WriteGuideReviewDisplay extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(titleTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(reviewTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(submitButton)
-                .addGap(33, 33, 33))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        SearchManager.addGuideReview(guideName, "Title temp",nameTextField.getText(), reviewTextField.getText(), new Date((long)System.currentTimeMillis()));
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        SearchManager.addGuideReview(guideName, titleTextField.getText(),nameTextField.getText(), reviewTextField.getText(), new Date((long)System.currentTimeMillis()));
         SearchManager.loadGuides(tour);
         
         this.dispose();
@@ -164,6 +170,7 @@ public class WriteGuideReviewDisplay extends javax.swing.JFrame {
     private javax.swing.JTextField nameTextField;
     private javax.swing.JTextField reviewTextField;
     private javax.swing.JButton submitButton;
+    private javax.swing.JTextField titleTextField;
     // End of variables declaration//GEN-END:variables
 
 }
