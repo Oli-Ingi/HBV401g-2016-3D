@@ -21,6 +21,7 @@ public class WriteTourReviewDisplay extends javax.swing.JFrame {
      */
     public WriteTourReviewDisplay(String name) {
         initComponents();
+        this.setLocationRelativeTo(null);
         tourName = name;
         initExtra();
     }

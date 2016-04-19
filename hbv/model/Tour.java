@@ -79,6 +79,13 @@ public class Tour implements Comparable<Tour>{
 		reviews.add(review);
 	}
 	
+        public void clearReviews(){
+            reviews.clear();
+        }
+        
+        public void clearGuides() {
+            guides.clear();
+        }
 	
 	public ArrayList<TourReview> getReviews(){
 	     return reviews;

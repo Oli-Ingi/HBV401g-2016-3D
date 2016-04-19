@@ -148,7 +148,7 @@ public class SearchManager {
             String[][] reviewData = null;
             try{
                 reviewData = DBManager.getData("ReviewTitle,ReviewTxt,Writer,WrittenDate,Likes", "Tours JOIN TourReviews ON Tours.Name=TourReviews.Name", whereParams);
-                
+                tour.clearReviews();
                 for(int i = 0; i<reviewData.length;i++){
                     tour.setReviews(new TourReview(reviewData[i][0],reviewData[i][1],reviewData[i][2],reviewData[i][3],Integer.parseInt(reviewData[i][4])));
             }
@@ -170,6 +170,12 @@ public class SearchManager {
             insertParams.put("WrittenDate", writtenDate);
             
             DBManager.insertData("TourReviews", insertParams);
+            
+            for(Tour tour: tours){
+                if (tour.getName().equals(tourName)){
+                    tour.setReviews(new TourReview(reviewTitle,reviewText,writer,writtenDate.toString(),0));
+                }
+            }
         }
         
          public static void addGuideReview(String tourName, String reviewTitle, String writer, String reviewText, Date writtenDate) throws IllegalArgumentException{
@@ -183,6 +189,7 @@ public class SearchManager {
             insertParams.put("WrittenDate", writtenDate);
             
             DBManager.insertData("GuideReviews", insertParams);
+            
         }
 	/*
 	 * End of database interaction methods.

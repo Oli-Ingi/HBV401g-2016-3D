@@ -42,8 +42,10 @@ public class MainDisplay extends javax.swing.JFrame {
      * Creates new form BackupDisplay
      */
     public MainDisplay() {
+       
         initComponents();
         initExtras();
+        this.setLocationRelativeTo(null);
     }
 
     private void initExtras(){
@@ -186,7 +188,6 @@ public class MainDisplay extends javax.swing.JFrame {
         guideReviewsPan = new javax.swing.JPanel();
         guideReviewScroller = new javax.swing.JScrollPane();
         guideReviewsList = new javax.swing.JList();
-        guideReviewReadBtn = new javax.swing.JButton();
         guideReviewWriteBtn = new javax.swing.JButton();
         guideBackBtn = new javax.swing.JButton();
 
@@ -546,7 +547,7 @@ public class MainDisplay extends javax.swing.JFrame {
 
         tourGuidesLab.setText("Guide(s):");
 
-        tourGuideLab1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        tourGuideLab1.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
         tourGuideLab1.setForeground(new java.awt.Color(0, 0, 255));
         tourGuideLab1.setText("Names");
         tourGuideLab1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -555,7 +556,7 @@ public class MainDisplay extends javax.swing.JFrame {
             }
         });
 
-        tourGuideLab2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        tourGuideLab2.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
         tourGuideLab2.setForeground(new java.awt.Color(0, 0, 255));
         tourGuideLab2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -563,7 +564,7 @@ public class MainDisplay extends javax.swing.JFrame {
             }
         });
 
-        tourGuideLab3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        tourGuideLab3.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
         tourGuideLab3.setForeground(new java.awt.Color(0, 0, 255));
         tourGuideLab3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -579,27 +580,27 @@ public class MainDisplay extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(tourDetailsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(tourDetailsPanLayout.createSequentialGroup()
+                        .addGroup(tourDetailsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tourDateLab, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tourPriceLab, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tourTypeLab, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tourPickupLab, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(tourDetailsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tourTypeLab)
-                            .addComponent(tourPriceLab)
-                            .addComponent(tourDateLab)
-                            .addComponent(tourPickupLab))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(tourDetailsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tourDurationLab)
-                            .addComponent(tourDestinationLab)
-                            .addComponent(tourDepartureLab)
-                            .addComponent(tourSeatsLab))
-                        .addGap(77, 77, 77))
+                            .addComponent(tourDurationLab, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tourDestinationLab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tourDepartureLab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tourSeatsLab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tourDetailsPanLayout.createSequentialGroup()
                         .addComponent(tourGuidesLab)
                         .addGap(18, 18, 18)
-                        .addComponent(tourGuideLab1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tourGuideLab1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(tourGuideLab2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(14, 14, 14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tourGuideLab3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         tourDetailsPanLayout.setVerticalGroup(
             tourDetailsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -808,13 +809,6 @@ public class MainDisplay extends javax.swing.JFrame {
 
         guideReviewScroller.setViewportView(guideReviewsList);
 
-        guideReviewReadBtn.setText("Read");
-        guideReviewReadBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guideReviewReadBtnActionPerformed(evt);
-            }
-        });
-
         guideReviewWriteBtn.setText("Write review");
         guideReviewWriteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -829,25 +823,16 @@ public class MainDisplay extends javax.swing.JFrame {
             .addGroup(guideReviewsPanLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(guideReviewsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(guideReviewScroller)
-                    .addGroup(guideReviewsPanLayout.createSequentialGroup()
-                        .addComponent(guideReviewReadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(143, 143, 143)
-                        .addComponent(guideReviewWriteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
+                    .addComponent(guideReviewScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
+                    .addComponent(guideReviewWriteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
                 .addContainerGap())
         );
         guideReviewsPanLayout.setVerticalGroup(
             guideReviewsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(guideReviewsPanLayout.createSequentialGroup()
-                .addGroup(guideReviewsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(guideReviewsPanLayout.createSequentialGroup()
-                        .addComponent(guideReviewScroller, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(guideReviewReadBtn)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(guideReviewsPanLayout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(guideReviewWriteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(guideReviewScroller, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(guideReviewWriteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -960,10 +945,6 @@ public class MainDisplay extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tourReviewRateBtnActionPerformed
 
-    private void guideReviewReadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guideReviewReadBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_guideReviewReadBtnActionPerformed
-
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         tourModel.clear();
         
@@ -1024,7 +1005,7 @@ public class MainDisplay extends javax.swing.JFrame {
                 
                 secondaryTitleLab.setText(currentTour.getName());
                 tourTypeLab.setText("Type: "+currentTour.getType());
-                tourPriceLab.setText("Price: "+currentTour.getPrice()+" kr.");
+                tourPriceLab.setText("Price: "+priceToString(currentTour.getPrice()));
                 tourDescTxt.setText(currentTour.getDescription());
                 tourDescTxt.setCaretPosition(0);
                 tourDateLab.setText("Date: "+currentTour.getDate());
@@ -1039,9 +1020,12 @@ public class MainDisplay extends javax.swing.JFrame {
                 ArrayList<Guide> guides = currentTour.getGuides();
                 if(guides.size()==1){
                     tourGuideLab1.setText(guides.get(0).getNickName());
+                    tourGuideLab2.setText("");
+                    tourGuideLab3.setText("");
                 } else if(guides.size()==2){
                     tourGuideLab1.setText(guides.get(0).getNickName());
                     tourGuideLab2.setText(guides.get(1).getNickName());
+                    tourGuideLab3.setText("");
                 } else{
                     tourGuideLab1.setText(guides.get(0).getNickName());
                     tourGuideLab2.setText(guides.get(1).getNickName());
@@ -1134,6 +1118,7 @@ public class MainDisplay extends javax.swing.JFrame {
 
         if(currentTour!=null && currentTour.getGuides().size()>0){
             setGuideInfo(0);
+            secondaryTitleLab.setText(tourGuideLab1.getText());
         }
     }//GEN-LAST:event_tourGuideLab1MouseClicked
 
@@ -1141,18 +1126,22 @@ public class MainDisplay extends javax.swing.JFrame {
         
         if(currentTour!=null && currentTour.getGuides().size()>1){
             setGuideInfo(1);
+            secondaryTitleLab.setText(tourGuideLab2.getText());
         }
     }//GEN-LAST:event_tourGuideLab2MouseClicked
 
     private void tourGuideLab3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourGuideLab3MouseClicked
+        
         if(currentTour!=null && currentTour.getGuides().size()>2){
             setGuideInfo(2);
+            secondaryTitleLab.setText(tourGuideLab3.getText());
         }
     }//GEN-LAST:event_tourGuideLab3MouseClicked
 
     private void guideBackBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guideBackBtnActionPerformed
 
         ((CardLayout)selectedMainCard.getLayout()).previous(selectedMainCard);
+        secondaryTitleLab.setText(currentTour.getName());
     }//GEN-LAST:event_guideBackBtnActionPerformed
 
     private void setGuideInfo(int guideNum){
@@ -1178,6 +1167,15 @@ public class MainDisplay extends javax.swing.JFrame {
         return Integer.parseInt(priceB.toString());	
     }
 
+    public String priceToString(int price){
+        StringBuilder build = new StringBuilder(String.valueOf(price));
+        // setjum punkta í verðtöluna:
+        for(int i = build.length()-3;i>0;i-=3) build.insert(i, '.');
+            
+        build.append(" kr.");
+        return build.toString();
+    }
+    
     class TourReviewCellRenderer extends JLabel implements ListCellRenderer {
         public TourReviewCellRenderer() {
             setOpaque(true);
@@ -1222,16 +1220,7 @@ public class MainDisplay extends javax.swing.JFrame {
             }
             return tourEntry;
         }
-        
-        private String priceToString(int price){
-            StringBuilder build = new StringBuilder(String.valueOf(price));
-            // setjum punkta í verðtöluna:
-            for(int i = build.length()-3;i>0;i-=3) build.insert(i, '.');
-            
-            build.append(" kr.");
-            return build.toString();
-        }
-    }
+     }
 
     
     /**
@@ -1293,7 +1282,6 @@ public class MainDisplay extends javax.swing.JFrame {
     private javax.swing.JPanel guideProfilePan;
     private javax.swing.JScrollPane guideProfileScroller;
     private javax.swing.JTextArea guideProfileTxtArea;
-    private javax.swing.JButton guideReviewReadBtn;
     private javax.swing.JScrollPane guideReviewScroller;
     private javax.swing.JButton guideReviewWriteBtn;
     private javax.swing.JList guideReviewsList;
