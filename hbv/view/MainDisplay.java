@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.Cursor;
 
 /**
  *
@@ -88,6 +89,9 @@ public class MainDisplay extends javax.swing.JFrame {
         rated = false;
         bookBtn.setVisible(false);
         
+        tourGuideLab1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        tourGuideLab2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        tourGuideLab3.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
     
     /**
@@ -564,7 +568,7 @@ public class MainDisplay extends javax.swing.JFrame {
 
         tourGuideLab1.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
         tourGuideLab1.setForeground(new java.awt.Color(0, 0, 255));
-        tourGuideLab1.setText("Names");
+        tourGuideLab1.setText("Name");
         tourGuideLab1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tourGuideLab1MouseClicked(evt);
@@ -604,16 +608,16 @@ public class MainDisplay extends javax.swing.JFrame {
                         .addGroup(tourDetailsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tourDurationLab, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tourDestinationLab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tourDepartureLab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tourDepartureLab, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                             .addComponent(tourSeatsLab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tourDetailsPanLayout.createSequentialGroup()
                         .addComponent(tourGuidesLab)
                         .addGap(18, 18, 18)
                         .addComponent(tourGuideLab1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(tourGuideLab2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tourGuideLab3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tourGuideLab2)
+                        .addGap(98, 98, 98)
+                        .addComponent(tourGuideLab3)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1015,6 +1019,7 @@ public class MainDisplay extends javax.swing.JFrame {
     private void tourListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_tourListValueChanged
         if(!evt.getValueIsAdjusting()){
             if(nothingChild.isShowing()) ((CardLayout)selectedMainCard.getLayout()).next(selectedMainCard);
+            if(guideChild.isShowing()) ((CardLayout)selectedMainCard.getLayout()).previous(selectedMainCard);
             if((Tour)tourList.getSelectedValue()!=null){
                 currentTour = (Tour)tourList.getSelectedValue();
                 
@@ -1121,7 +1126,6 @@ public class MainDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_guideReviewWriteBtnActionPerformed
 
     private void tourReviewWriteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourReviewWriteBtnActionPerformed
-
         if(currentTour!=null) new WriteTourReviewDisplay(currentTour.getName(),this).setVisible(true);
     }//GEN-LAST:event_tourReviewWriteBtnActionPerformed
 
