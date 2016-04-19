@@ -932,6 +932,9 @@
                           <Color blue="ff" green="0" red="0" type="rgb"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tourGuideLab2MouseClicked"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="tourGuideLab3">
                       <Properties>
@@ -942,6 +945,9 @@
                           <Color blue="ff" green="0" red="0" type="rgb"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tourGuideLab3MouseClicked"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

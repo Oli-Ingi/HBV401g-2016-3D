@@ -565,9 +565,19 @@ public class MainDisplay extends javax.swing.JFrame {
 
         tourGuideLab2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tourGuideLab2.setForeground(new java.awt.Color(0, 0, 255));
+        tourGuideLab2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tourGuideLab2MouseClicked(evt);
+            }
+        });
 
         tourGuideLab3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tourGuideLab3.setForeground(new java.awt.Color(0, 0, 255));
+        tourGuideLab3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tourGuideLab3MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout tourDetailsPanLayout = new javax.swing.GroupLayout(tourDetailsPan);
         tourDetailsPan.setLayout(tourDetailsPanLayout);
@@ -1235,8 +1245,7 @@ public class MainDisplay extends javax.swing.JFrame {
             return build.toString();
         }
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
