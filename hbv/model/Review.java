@@ -8,12 +8,17 @@ public abstract class Review {
 	protected String writer;
 	protected String dateOfWriting;
 	protected int likes;
+        protected String reviewTitle;
 	
 	
 	public String getText(){
 		return reviewText;
 	}
 	
+        public String getTitle(){
+            return reviewTitle;
+        }
+        
 	public String getWriter(){
 		return writer;
 	}

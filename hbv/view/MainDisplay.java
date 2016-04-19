@@ -169,7 +169,6 @@ public class MainDisplay extends javax.swing.JFrame {
         tourReviewsPan = new javax.swing.JPanel();
         tourReviewScroller = new javax.swing.JScrollPane();
         tourReviewList = new javax.swing.JList();
-        tourReviewReadBtn = new javax.swing.JButton();
         tourReviewWriteBtn = new javax.swing.JButton();
         tourBeenLab = new javax.swing.JLabel();
         tourReviewSep = new javax.swing.JSeparator();
@@ -655,13 +654,6 @@ public class MainDisplay extends javax.swing.JFrame {
         tourReviewList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tourReviewScroller.setViewportView(tourReviewList);
 
-        tourReviewReadBtn.setText("Read");
-        tourReviewReadBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tourReviewReadBtnActionPerformed(evt);
-            }
-        });
-
         tourReviewWriteBtn.setText("Write review");
         tourReviewWriteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -704,24 +696,19 @@ public class MainDisplay extends javax.swing.JFrame {
                     .addComponent(tourReviewSep, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tourReviewScroller)
                     .addGroup(tourReviewsPanLayout.createSequentialGroup()
-                        .addComponent(tourReviewWriteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tourReviewWriteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tourStarsSep, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tourStarsLab)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tourReviewRateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(tourReviewsPanLayout.createSequentialGroup()
-                        .addComponent(tourReviewReadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(tourReviewRateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         tourReviewsPanLayout.setVerticalGroup(
             tourReviewsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tourReviewsPanLayout.createSequentialGroup()
-                .addComponent(tourReviewScroller, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tourReviewReadBtn)
+                .addComponent(tourReviewScroller, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tourReviewSep, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -954,10 +941,6 @@ public class MainDisplay extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_pickupCheckActionPerformed
 
-    private void tourReviewReadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourReviewReadBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tourReviewReadBtnActionPerformed
-
     private void tourReviewRateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourReviewRateBtnActionPerformed
 
         if(currentTour!=null) SearchManager.updateRating(currentTour.getName(), ratingChosen);
@@ -1065,6 +1048,11 @@ public class MainDisplay extends javax.swing.JFrame {
                     tourGuideLab3.setText(guides.get(2).getNickName());
                 }
                 if(currentTour.getReviews().isEmpty()) SearchManager.loadTourReviews(currentTour);
+                tourReviewModel.clear();
+                SearchManager.loadTourReviews(currentTour);
+                for(Review tourRev: currentTour.getReviews()){
+                    tourReviewModel.addElement(tourRev);
+                }
                 
                 tourStarsLab.setIcon(new ImageIcon(getClass().getResource("/Images/"+currentTour.getUserRating()+"star.png")));
             }
@@ -1134,7 +1122,7 @@ public class MainDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_orderComboActionPerformed
 
     private void guideReviewWriteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guideReviewWriteBtnActionPerformed
-        new WriteGuideReviewDisplay(currentlySelectedGuide.getName()).setVisible(true);
+        new WriteGuideReviewDisplay(currentlySelectedGuide.getName(),currentTour).setVisible(true);
     }//GEN-LAST:event_guideReviewWriteBtnActionPerformed
 
     private void tourReviewWriteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourReviewWriteBtnActionPerformed
@@ -1199,10 +1187,8 @@ public class MainDisplay extends javax.swing.JFrame {
         public Component getListCellRendererComponent(JList list, Object value,
                 int index, boolean isSelected, boolean cellHasFocus) {
             Review review = (Review) value;
-            ReviewCell reviewEntry = new ReviewCell(review.getText(), review.getWriter(), review.getText());
-            if (isSelected){
-                
-            }
+            ReviewCell reviewEntry = new ReviewCell(review.getTitle(), String.valueOf(review.getLikeAmount()));
+
             reviewEntry.setBorder(BorderFactory.createEtchedBorder());
             if (isSelected) {
                 reviewEntry.setBackground(new Color(0,100,200,50));
@@ -1247,6 +1233,7 @@ public class MainDisplay extends javax.swing.JFrame {
         }
     }
 
+    
     /**
      * @param args the command line arguments
      */
@@ -1361,7 +1348,6 @@ public class MainDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel tourPriceLab;
     private javax.swing.JList tourReviewList;
     private javax.swing.JButton tourReviewRateBtn;
-    private javax.swing.JButton tourReviewReadBtn;
     private javax.swing.JScrollPane tourReviewScroller;
     private javax.swing.JSeparator tourReviewSep;
     private javax.swing.JButton tourReviewWriteBtn;

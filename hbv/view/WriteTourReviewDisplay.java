@@ -117,7 +117,7 @@ public class WriteTourReviewDisplay extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        SearchManager.addTourReview(tourName, nameTextField.getText(), reviewTextField.getText(), new Date((long)System.currentTimeMillis()));
+        SearchManager.addTourReview(tourName, "Title temp",nameTextField.getText(), reviewTextField.getText(), new Date((long)System.currentTimeMillis()));
         this.dispose();
         
     }//GEN-LAST:event_submitButtonActionPerformed

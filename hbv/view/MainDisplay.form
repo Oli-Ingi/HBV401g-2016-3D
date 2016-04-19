@@ -1015,17 +1015,13 @@
                                   <Component id="tourReviewSep" alignment="1" max="32767" attributes="0"/>
                                   <Component id="tourReviewScroller" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="tourReviewWriteBtn" max="32767" attributes="0"/>
+                                      <Component id="tourReviewWriteBtn" pref="126" max="32767" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="tourStarsSep" min="-2" pref="10" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="tourStarsLab" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="tourReviewRateBtn" min="-2" pref="63" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="tourReviewReadBtn" min="-2" pref="97" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1035,10 +1031,8 @@
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="tourReviewScroller" min="-2" pref="68" max="-2" attributes="0"/>
+                              <Component id="tourReviewScroller" min="-2" pref="97" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tourReviewReadBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Component id="tourReviewSep" min="-2" pref="2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="tourBeenLab" min="-2" pref="37" max="-2" attributes="0"/>
@@ -1072,14 +1066,6 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JButton" name="tourReviewReadBtn">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Read"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tourReviewReadBtnActionPerformed"/>
-                      </Events>
-                    </Component>
                     <Component class="javax.swing.JButton" name="tourReviewWriteBtn">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Write review"/>

@@ -147,10 +147,10 @@ public class SearchManager {
             whereParams.put("Tours.Name=", tour.getName());
             String[][] reviewData = null;
             try{
-                reviewData = DBManager.getData("ReviewTxt,Writer,WrittenDate", "Tours JOIN TourReviews ON Tours.Name=TourReviews.Name", whereParams);
+                reviewData = DBManager.getData("ReviewTitle,ReviewTxt,Writer,WrittenDate,Likes", "Tours JOIN TourReviews ON Tours.Name=TourReviews.Name", whereParams);
                 
                 for(int i = 0; i<reviewData.length;i++){
-                    tour.setReviews(new TourReview(reviewData[i][0],reviewData[i][1],reviewData[i][2]));
+                    tour.setReviews(new TourReview(reviewData[i][0],reviewData[i][1],reviewData[i][2],reviewData[i][3],Integer.parseInt(reviewData[i][4])));
             }
             } catch (NoSuchElementException e){
                 System.out.println(e.getMessage());
@@ -159,21 +159,27 @@ public class SearchManager {
 
         }
         
-        public static void addTourReview(String tourName, String writter, String reviewText, Date writtenDate){
+        public static void addTourReview(String tourName, String reviewTitle, String writer, String reviewText, Date writtenDate) throws IllegalArgumentException{
+            if(reviewTitle.length()>100) throw new IllegalArgumentException("Title too long (max 50chars).");
             HashMap<String, Object> insertParams = new HashMap<>();
             insertParams.put("Name", tourName);
+            insertParams.put("ReviewTitle", reviewTitle);
+            insertParams.put("Likes", 0);
             insertParams.put("ReviewTxt", reviewText);
-            insertParams.put("Writter", writter);
+            insertParams.put("Writer", writer);
             insertParams.put("WrittenDate", writtenDate);
             
             DBManager.insertData("TourReviews", insertParams);
         }
         
-         public static void addGuideReview(String tourName, String writter, String reviewText, Date writtenDate){
-            HashMap<String, Object> insertParams = new HashMap<>();
+         public static void addGuideReview(String tourName, String reviewTitle, String writer, String reviewText, Date writtenDate) throws IllegalArgumentException{
+            if(reviewTitle.length()>50) throw new IllegalArgumentException("Title too long (max 50chars).");
+             HashMap<String, Object> insertParams = new HashMap<>();
             insertParams.put("Name", tourName);
+            insertParams.put("ReviewTitle", reviewTitle);
             insertParams.put("ReviewTxt", reviewText);
-            insertParams.put("Writter", writter);
+            insertParams.put("Likes", 0);
+            insertParams.put("Writer", writer);
             insertParams.put("WrittenDate", writtenDate);
             
             DBManager.insertData("GuideReviews", insertParams);

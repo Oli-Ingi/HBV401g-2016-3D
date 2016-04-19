@@ -142,12 +142,12 @@ We will be walking into reykjavik most epic sceneries and
 spectacular sights.',3,1.2,4,4000,'Reykjavik sights','Downtown Reykjavik','Reykjavik',0,'Villi Siggs');
 
 Create TABLE GuideReviews(
-	Name VARCHAR(50) REFERENCES Guides(Name),
+	Name 			VARCHAR(50) REFERENCES Guides(Name),
 	ReviewTitle 	VARCHAR(150),
 	ReviewTxt 	TEXT,
-	Writer		VARCHAR(50),
+	Writer			VARCHAR(50),
 	WrittenDate 	DATE,
-	Likes 		INT
+	Likes 			INT
 );
 
 INSERT INTO GuideReviews(Name,ReviewTitle,ReviewTxt,Writer,WrittenDate,Likes) VALUES('Vilhjalmur Sigmundsson','This man is a terrible human being!',
@@ -159,12 +159,12 @@ the ocean.. He also didnt talk to anyone or answer any
 questions .... asshole', 'Johnny Mormon', '2015-10-22',7);
 
 Create TABLE TourReviews(
-	Name VARCHAR(50) REFERENCES Tours(Name),
-	ReviewTitle 	VARCHAR(150),
+	Name 			VARCHAR(50) REFERENCES Tours(Name),
+	ReviewTitle 	VARCHAR(50),
 	ReviewTxt 	TEXT,
-	Writer 		VARCHAR(50),
+	Writer 			VARCHAR(50),
 	WrittenDate 	DATE,
-	Likes 		INT
+	Likes 			INT
 );
 
 INSERT INTO TourReviews(Name,ReviewTitle,ReviewTxt,Writer,WrittenDate,Likes) VALUES('Whale killahs!','Oh my god.. This was terrible!!',
@@ -176,9 +176,9 @@ it was snowing because, you know, its Iceland..!','Johnny Mormon','23-04-2015',4
 
 
 Create Table TourDates (
-	Name 		VARCHAR(50)  REFERENCES Tours(Name),
-	Date 		DATE,
-	SeatsAvailable INT
+	Name 				VARCHAR(50)  REFERENCES Tours(Name),
+	Date 				DATE,
+	SeatsAvailable 	INT
 );
 
 INSERT INTO TourDates(Name, Date,SeatsAvailable)

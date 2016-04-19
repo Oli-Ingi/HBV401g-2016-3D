@@ -44,12 +44,15 @@ public class TourCell extends javax.swing.JPanel {
         listPrice = new javax.swing.JLabel();
         listDate = new javax.swing.JLabel();
 
+        listName.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
         listName.setText("Name goes here");
 
         listRating.setText("Image goes here");
 
+        listPrice.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         listPrice.setText("Price goes here");
 
+        listDate.setFont(new java.awt.Font("Tahoma", 2, 11)); // NOI18N
         listDate.setText("Date goes here");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -63,8 +66,7 @@ public class TourCell extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(listRating, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
-                    .addComponent(listDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(listDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

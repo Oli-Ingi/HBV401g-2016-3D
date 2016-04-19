@@ -7,8 +7,8 @@
 package hbv.view;
 
 import hbv.controller.SearchManager;
+import hbv.model.Tour;
 import java.util.Date;
-import javax.swing.JLabel;
 
 /**
  *
@@ -17,11 +17,12 @@ import javax.swing.JLabel;
 public class WriteGuideReviewDisplay extends javax.swing.JFrame {
 
     private static String guideName;
-    
+    private static Tour tour;
     /** Creates new form WriteGuideReviewDisplay */
-    public WriteGuideReviewDisplay(String name) {
+    public WriteGuideReviewDisplay(String name, Tour tour) {
         initComponents();
         guideName = name;
+        this.tour = tour;
         initExtra();
     }
     
@@ -113,7 +114,9 @@ public class WriteGuideReviewDisplay extends javax.swing.JFrame {
 
     
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-        SearchManager.addGuideReview(guideName, nameTextField.getText(), reviewTextField.getText(), new Date((long)System.currentTimeMillis()));
+        SearchManager.addGuideReview(guideName, "Title temp",nameTextField.getText(), reviewTextField.getText(), new Date((long)System.currentTimeMillis()));
+        SearchManager.loadGuides(tour);
+        
         this.dispose();
         
     }
@@ -148,7 +151,7 @@ public class WriteGuideReviewDisplay extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new WriteGuideReviewDisplay(guideName).setVisible(true);
+                new WriteGuideReviewDisplay(guideName,tour).setVisible(true);
             }
         });
     }
