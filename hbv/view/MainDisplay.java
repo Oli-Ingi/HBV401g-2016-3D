@@ -42,7 +42,7 @@ public class MainDisplay extends javax.swing.JFrame {
     DefaultListModel<Review> tourReviewModel;
     private boolean rated;
     private int ratingChosen;
-    private Tour currentlySelectedTour;
+    private Tour currentTour;
     private Guide currentlySelectedGuide;
     
     /**
@@ -565,19 +565,9 @@ public class MainDisplay extends javax.swing.JFrame {
 
         tourGuideLab2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tourGuideLab2.setForeground(new java.awt.Color(0, 0, 255));
-        tourGuideLab2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tourGuideLab2MouseClicked(evt);
-            }
-        });
 
         tourGuideLab3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tourGuideLab3.setForeground(new java.awt.Color(0, 0, 255));
-        tourGuideLab3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tourGuideLab3MouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout tourDetailsPanLayout = new javax.swing.GroupLayout(tourDetailsPan);
         tourDetailsPan.setLayout(tourDetailsPanLayout);
@@ -872,6 +862,11 @@ public class MainDisplay extends javax.swing.JFrame {
         );
 
         guideBackBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/backArrow.png"))); // NOI18N
+        guideBackBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guideBackBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout guideChildLayout = new javax.swing.GroupLayout(guideChild);
         guideChild.setLayout(guideChildLayout);
@@ -962,8 +957,7 @@ public class MainDisplay extends javax.swing.JFrame {
 
     private void tourReviewRateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourReviewRateBtnActionPerformed
 
-        Tour tour = ((Tour)tourList.getSelectedValue());
-        SearchManager.updateRating(tour.getName(), ratingChosen);
+        if(currentTour!=null) SearchManager.updateRating(currentTour.getName(), ratingChosen);
         /*
         Þar sem við getum ekki kannað IP-tölur eða þ.u.l. þá látum við
         bara hvert tour object geyma upplýsingar um það hvort það hafi verið búið
@@ -971,9 +965,9 @@ public class MainDisplay extends javax.swing.JFrame {
         rate-a aftur sama tour, en það er viljandi.
         */
          for(Tour tourInList: tours){
-             if (tourInList.getName().equals(tour.getName())){
-                 tour.setUserRating(ratingChosen);
-                 tour.setRated();
+             if (tourInList.getName().equals(currentTour.getName())){
+                 currentTour.setUserRating(ratingChosen);
+                 currentTour.setRated();
              }
          }
          tourReviewRateBtn.setEnabled(false);
@@ -1039,25 +1033,23 @@ public class MainDisplay extends javax.swing.JFrame {
     private void tourListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_tourListValueChanged
         if(!evt.getValueIsAdjusting()){
             if(nothingChild.isShowing()) ((CardLayout)selectedMainCard.getLayout()).next(selectedMainCard);
-            
-            Tour selected = (Tour)tourList.getSelectedValue();
-            currentlySelectedTour = selected;
-            if(selected!=null){
-                secondaryTitleLab.setText(selected.getName());
-                tourTypeLab.setText("Type: "+selected.getType());
-                tourPriceLab.setText("Price: "+selected.getPrice()+" kr.");
-                tourDescTxt.setText(selected.getDescription());
+            if((Tour)tourList.getSelectedValue()!=null) currentTour = (Tour)tourList.getSelectedValue();
+            if(currentTour!=null && ((Tour)tourList.getSelectedValue()!=null)){
+                secondaryTitleLab.setText(currentTour.getName());
+                tourTypeLab.setText("Type: "+currentTour.getType());
+                tourPriceLab.setText("Price: "+currentTour.getPrice()+" kr.");
+                tourDescTxt.setText(currentTour.getDescription());
                 tourDescTxt.setCaretPosition(0);
-                tourDateLab.setText("Date: "+selected.getDate());
-                tourDepartureLab.setText("Departure from: "+selected.getDepartureLocation());
-                tourDestinationLab.setText("Destination: "+selected.getDestination());
-                tourDurationLab.setText("Duration: "+selected.getDuration()+" hrs.");
-                tourSeatsLab.setText("Available seats: "+String.valueOf(selected.getSeatsAvailable()));
-                if(selected.getPickup()) tourPickupLab.setText("Hotel pickup: Yes");
+                tourDateLab.setText("Date: "+currentTour.getDate());
+                tourDepartureLab.setText("Departure from: "+currentTour.getDepartureLocation());
+                tourDestinationLab.setText("Destination: "+currentTour.getDestination());
+                tourDurationLab.setText("Duration: "+currentTour.getDuration()+" hrs.");
+                tourSeatsLab.setText("Available seats: "+String.valueOf(currentTour.getSeatsAvailable()));
+                if(currentTour.getPickup()) tourPickupLab.setText("Hotel pickup: Yes");
                 else tourPickupLab.setText("Hotel pickup: No");
 
-                if(selected.getGuides().isEmpty()) SearchManager.loadGuides(selected);
-                ArrayList<Guide> guides = selected.getGuides();
+                if(currentTour.getGuides().isEmpty()) SearchManager.loadGuides(currentTour);
+                ArrayList<Guide> guides = currentTour.getGuides();
                 if(guides.size()==1){
                     tourGuideLab1.setText(guides.get(0).getNickName());
                 } else if(guides.size()==2){
@@ -1068,17 +1060,15 @@ public class MainDisplay extends javax.swing.JFrame {
                     tourGuideLab2.setText(guides.get(1).getNickName());
                     tourGuideLab3.setText(guides.get(2).getNickName());
                 }
-                tourStarsLab.setIcon(new ImageIcon(getClass().getResource("/Images/"+selected.getUserRating()+"star.png")));
+                tourStarsLab.setIcon(new ImageIcon(getClass().getResource("/Images/"+currentTour.getUserRating()+"star.png")));
             }
         }
 
-        
-        
     }//GEN-LAST:event_tourListValueChanged
 
     private void tourStarsLabMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourStarsLabMousePressed
-        try{
-            if(!((Tour)tourList.getSelectedValue()).isRated()){
+
+            if(!currentTour.isRated()){
                 int part = tourStarsLab.getWidth()/5;
                 ImageIcon stars;
                 if(evt.getX()<part*1){
@@ -1102,14 +1092,12 @@ public class MainDisplay extends javax.swing.JFrame {
                 }
                 tourStarsLab.setIcon(stars);
             }
-        } catch(NullPointerException e){
-            
-        }
+
     }//GEN-LAST:event_tourStarsLabMousePressed
 
     private void tourStarsLabMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourStarsLabMouseReleased
 
-        if(!((Tour)tourList.getSelectedValue()).isRated()){
+        if(!currentTour.isRated()){
             tourReviewRateBtn.setEnabled(true);
         }
     }//GEN-LAST:event_tourStarsLabMouseReleased
@@ -1144,40 +1132,45 @@ public class MainDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_guideReviewWriteBtnActionPerformed
 
     private void tourReviewWriteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourReviewWriteBtnActionPerformed
-        // TODO add your handling code here:
-        new WriteTourReviewDisplay(((Tour)tourList.getSelectedValue()).getName()).setVisible(true);
+
+        if(currentTour!=null) new WriteTourReviewDisplay(currentTour.getName()).setVisible(true);
     }//GEN-LAST:event_tourReviewWriteBtnActionPerformed
 
     private void tourGuideLab1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourGuideLab1MouseClicked
-        ((CardLayout)selectedMainCard.getLayout()).next(selectedMainCard);
-        guideNameLab.setText("Full name: "+currentlySelectedTour.getGuides().get(0).getName());
-        currentlySelectedGuide = currentlySelectedTour.getGuides().get(0);
-        guideGenderLab.setText("Gender: "+currentlySelectedTour.getGuides().get(0).getGender());
-        guideAgeLab.setText("Age: "+currentlySelectedTour.getGuides().get(0).getAge());
-        guideProfileTxtArea.setText(currentlySelectedTour.getGuides().get(0).getProfile());
-        guideProfileTxtArea.setCaretPosition(0);
+
+        if(currentTour!=null && currentTour.getGuides().size()>0){
+            setGuideInfo(0);
+        }
     }//GEN-LAST:event_tourGuideLab1MouseClicked
 
     private void tourGuideLab2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourGuideLab2MouseClicked
-        ((CardLayout)selectedMainCard.getLayout()).next(selectedMainCard);
-        guideNameLab.setText("Full name: "+currentlySelectedTour.getGuides().get(1).getName());
-        currentlySelectedGuide = currentlySelectedTour.getGuides().get(1);
-        guideGenderLab.setText("Gender: "+currentlySelectedTour.getGuides().get(1).getGender());
-        guideAgeLab.setText("Age: "+currentlySelectedTour.getGuides().get(1).getAge());
-        guideProfileTxtArea.setText(currentlySelectedTour.getGuides().get(1).getProfile());
-        guideProfileTxtArea.setCaretPosition(0);
+        
+        if(currentTour!=null && currentTour.getGuides().size()>1){
+            setGuideInfo(1);
+        }
     }//GEN-LAST:event_tourGuideLab2MouseClicked
 
     private void tourGuideLab3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourGuideLab3MouseClicked
-        ((CardLayout)selectedMainCard.getLayout()).next(selectedMainCard);
-        guideNameLab.setText("Full name: "+currentlySelectedTour.getGuides().get(2).getName());
-        currentlySelectedGuide = currentlySelectedTour.getGuides().get(2);
-        guideGenderLab.setText("Gender: "+currentlySelectedTour.getGuides().get(2).getGender());
-        guideAgeLab.setText("Age: "+currentlySelectedTour.getGuides().get(2).getAge());
-        guideProfileTxtArea.setText(currentlySelectedTour.getGuides().get(2).getProfile());
-        guideProfileTxtArea.setCaretPosition(0);
+        if(currentTour!=null && currentTour.getGuides().size()>2){
+            setGuideInfo(2);
+        }
     }//GEN-LAST:event_tourGuideLab3MouseClicked
 
+    private void guideBackBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guideBackBtnActionPerformed
+
+        ((CardLayout)selectedMainCard.getLayout()).previous(selectedMainCard);
+    }//GEN-LAST:event_guideBackBtnActionPerformed
+
+    private void setGuideInfo(int guideNum){
+        ((CardLayout)selectedMainCard.getLayout()).next(selectedMainCard);
+        guideNameLab.setText("Full name: "+currentTour.getGuides().get(guideNum).getName());
+        currentlySelectedGuide = currentTour.getGuides().get(guideNum);
+        guideGenderLab.setText("Gender: "+currentTour.getGuides().get(guideNum).getGender());
+        guideAgeLab.setText("Age: "+currentTour.getGuides().get(guideNum).getAge());
+        guideProfileTxtArea.setText(currentTour.getGuides().get(guideNum).getProfile());
+        guideProfileTxtArea.setCaretPosition(0);
+    }
+    
     private int priceToInt(String priceStr){
         StringBuilder priceB = new StringBuilder(priceStr);
         // losna við ' kr.' aftast í strengnum:

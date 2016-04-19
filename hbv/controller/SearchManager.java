@@ -44,7 +44,7 @@ public class SearchManager {
 		if(!destination.equals("")) searchParams.put("Destination LIKE ", destination);
 		if(!departure.equals("")) searchParams.put("Departure LIKE ", departure);
 		if(!type.equals("")) searchParams.put("Type=", type);
-		if(!name.equals("")) searchParams.put("Name LIKE ", name);
+		if(!name.equals("")) searchParams.put("Tours.Name LIKE ", name);
 		
 		
 		// Bý til lista af Tour hlutum miðað við leitarskilyrðin.
