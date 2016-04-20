@@ -141,19 +141,36 @@ public class SearchManager {
         
         public static void loadTourReviews(Tour tour){
             HashMap<String,Object> whereParams = new HashMap<>();
-            whereParams.put("Tours.Name=", tour.getName());
+            whereParams.put("Name=", tour.getName());
             String[][] reviewData = null;
             try{
-                reviewData = DBManager.getData("ReviewTitle,ReviewTxt,Writer,WrittenDate,Likes", "Tours JOIN TourReviews ON Tours.Name=TourReviews.Name", whereParams);
+                reviewData = DBManager.getData("ReviewTitle,ReviewTxt,Writer,WrittenDate,Likes", "TourReviews", whereParams);
                 tour.clearReviews();
                 for(int i = 0; i<reviewData.length;i++){
                     tour.setReviews(new TourReview(reviewData[i][0],reviewData[i][1],reviewData[i][2],reviewData[i][3],Integer.parseInt(reviewData[i][4])));
-            }
+                }
             } catch (NoSuchElementException e){
                 System.out.println(e.getMessage());
             }
+        }
+        
+        public static void loadGuideReviews(Guide guide){
+            HashMap<String,Object> whereParams = new HashMap<>();
+            whereParams.put("Name=", guide.getName());
+            String[][] reviewData = null;
+            try{
+                reviewData = DBManager.getData("ReviewTitle,ReviewTxt,Writer,WrittenDate,Likes", "GuideReviews", whereParams);
+                guide.clearReviews();
+                for(int i = 0; i<reviewData.length;i++){
+                    guide.setReview(new GuideReview(reviewData[i][0],reviewData[i][1],reviewData[i][2],reviewData[i][3],Integer.parseInt(reviewData[i][4])));
+                }
+            } catch (NoSuchElementException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        private static void loadReviews(String objName, String table){
             
-
         }
         
         public static void addTourReview(String tourName, String reviewTitle, String writer, String reviewText, Date writtenDate) throws IllegalArgumentException{
@@ -175,10 +192,10 @@ public class SearchManager {
             }
         }
         
-         public static void addGuideReview(String tourName, String reviewTitle, String writer, String reviewText, Date writtenDate) throws IllegalArgumentException{
+         public static void addGuideReview(String guideName, String reviewTitle, String writer, String reviewText, Date writtenDate) throws IllegalArgumentException{
             if(reviewTitle.length()>50) throw new IllegalArgumentException("Title too long (max 50chars).");
              HashMap<String, Object> insertParams = new HashMap<>();
-            insertParams.put("Name", tourName);
+            insertParams.put("Name", guideName);
             insertParams.put("ReviewTitle", reviewTitle);
             insertParams.put("ReviewTxt", reviewText);
             insertParams.put("Likes", 0);
@@ -186,6 +203,13 @@ public class SearchManager {
             insertParams.put("WrittenDate", writtenDate);
             
             DBManager.insertData("GuideReviews", insertParams);
+            
+            for(Tour tour: tours){
+                for(Guide guide: tour.getGuides()){
+                    if(guideName.equals(guide.getName()))
+                        guide.setReview(new GuideReview(reviewTitle,reviewText,writer,writtenDate.toString(),0));
+                }
+            }
         }
 	/*
 	 * End of database interaction methods.

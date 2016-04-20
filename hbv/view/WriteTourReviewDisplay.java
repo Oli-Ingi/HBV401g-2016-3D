@@ -22,7 +22,7 @@ public class WriteTourReviewDisplay extends javax.swing.JFrame {
     public WriteTourReviewDisplay(String name, MainDisplay display) {
         this.display = display;
         initComponents();
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(display);
         tourName = name;
         initExtra();
         this.setResizable(false);
@@ -303,7 +303,7 @@ public class WriteTourReviewDisplay extends javax.swing.JFrame {
         }
         else{
             SearchManager.addTourReview(tourName, titleTxt.getText(), authorTxt.getText(), reviewTxt.getText(), new Date());
-            display.refreshReviewsList();
+            display.refreshTourReviewsList();
             this.dispose();
         }
     }//GEN-LAST:event_submitBtnActionPerformed

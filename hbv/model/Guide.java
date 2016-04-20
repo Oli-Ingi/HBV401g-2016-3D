@@ -17,6 +17,7 @@ public class Guide {
 		this.age = age;
 		this.gender = gender;
 		this.profile = profile;
+                reviews = new ArrayList<>();
 	}
 
 	public String getName() {
@@ -45,6 +46,10 @@ public class Guide {
         
         public void setReview(GuideReview review){
             this.reviews.add(review);
+        }
+        
+        public void clearReviews(){
+            this.reviews.clear();
         }
         
         public void setName(String newName){
