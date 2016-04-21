@@ -262,12 +262,6 @@ public class MainDisplay extends javax.swing.JFrame {
         durationToLab.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         durationToLab.setText("to: ");
 
-        pickupCheck.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pickupCheckActionPerformed(evt);
-            }
-        });
-
         ratingLab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         ratingLab.setText("Rating:");
 
@@ -430,7 +424,7 @@ public class MainDisplay extends javax.swing.JFrame {
         );
         introListPanLayout.setVerticalGroup(
             introListPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(introLab, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+            .addComponent(introLab, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
         );
 
         listSwitcherPan.add(introListPan, "card4");
@@ -490,7 +484,7 @@ public class MainDisplay extends javax.swing.JFrame {
                             .addComponent(orderLab)
                             .addComponent(orderCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE))
                     .addComponent(tourScroller))
                 .addContainerGap())
         );
@@ -508,7 +502,7 @@ public class MainDisplay extends javax.swing.JFrame {
         );
         searchListImagePanLayout.setVerticalGroup(
             searchListImagePanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(noResLab, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+            .addComponent(noResLab, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
         );
 
         listSwitcherPan.add(searchListImagePan, "card3");
@@ -521,7 +515,7 @@ public class MainDisplay extends javax.swing.JFrame {
         );
         resultsPanLayout.setVerticalGroup(
             resultsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(listSwitcherPan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(listSwitcherPan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         mainTitlePan.setOpaque(false);
@@ -555,7 +549,9 @@ public class MainDisplay extends javax.swing.JFrame {
         secondaryTitlePan.setLayout(secondaryTitlePanLayout);
         secondaryTitlePanLayout.setHorizontalGroup(
             secondaryTitlePanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(secondaryTitleLab, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+            .addGroup(secondaryTitlePanLayout.createSequentialGroup()
+                .addComponent(secondaryTitleLab, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         secondaryTitlePanLayout.setVerticalGroup(
             secondaryTitlePanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -579,14 +575,14 @@ public class MainDisplay extends javax.swing.JFrame {
             nothingChildLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nothingChildLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nothingLoadedLab, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                .addComponent(nothingLoadedLab, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
                 .addContainerGap())
         );
         nothingChildLayout.setVerticalGroup(
             nothingChildLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nothingChildLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nothingLoadedLab, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
+                .addComponent(nothingLoadedLab, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -748,7 +744,7 @@ public class MainDisplay extends javax.swing.JFrame {
             tourReviewListPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tourReviewListPanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tourReviewScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                .addComponent(tourReviewScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                 .addContainerGap())
         );
         tourReviewListPanLayout.setVerticalGroup(
@@ -769,7 +765,7 @@ public class MainDisplay extends javax.swing.JFrame {
         noTourReviewsPan.setLayout(noTourReviewsPanLayout);
         noTourReviewsPanLayout.setHorizontalGroup(
             noTourReviewsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(noTourReviewsLab, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+            .addComponent(noTourReviewsLab, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
         );
         noTourReviewsPanLayout.setVerticalGroup(
             noTourReviewsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -808,7 +804,7 @@ public class MainDisplay extends javax.swing.JFrame {
                 .addComponent(tourStarsLab)
                 .addGap(18, 18, 18)
                 .addComponent(tourReviewRateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         rateStarsPanLayout.setVerticalGroup(
             rateStarsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -950,7 +946,7 @@ public class MainDisplay extends javax.swing.JFrame {
         guideProfilePanLayout.setVerticalGroup(
             guideProfilePanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(guideProfilePanLayout.createSequentialGroup()
-                .addComponent(guideProfileScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                .addComponent(guideProfileScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -978,7 +974,7 @@ public class MainDisplay extends javax.swing.JFrame {
             guideReviewListPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(guideReviewListPanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(guideReviewScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                .addComponent(guideReviewScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                 .addContainerGap())
         );
         guideReviewListPanLayout.setVerticalGroup(
@@ -999,7 +995,7 @@ public class MainDisplay extends javax.swing.JFrame {
         noGuideReviews.setLayout(noGuideReviewsLayout);
         noGuideReviewsLayout.setHorizontalGroup(
             noGuideReviewsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(noGuideReviewsLab, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+            .addComponent(noGuideReviewsLab, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
         );
         noGuideReviewsLayout.setVerticalGroup(
             noGuideReviewsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1042,12 +1038,12 @@ public class MainDisplay extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, guideChildLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(guideChildLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(guideDetailsPan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(guideProfilePan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(guideReviewsPan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, guideChildLayout.createSequentialGroup()
                         .addComponent(guideBackBtn)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(guideDetailsPan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(guideProfilePan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(guideReviewsPan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         guideChildLayout.setVerticalGroup(
@@ -1084,9 +1080,8 @@ public class MainDisplay extends javax.swing.JFrame {
                 .addGroup(backgroundPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundPanLayout.createSequentialGroup()
                         .addComponent(secondaryTitlePan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(selectedMainCard, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addContainerGap())
+                    .addComponent(selectedMainCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         backgroundPanLayout.setVerticalGroup(
             backgroundPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1104,7 +1099,7 @@ public class MainDisplay extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(backgroundPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(selectedMainCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(resultsPan, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+                            .addComponent(resultsPan, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                             .addComponent(searchParamsPan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -1113,10 +1108,6 @@ public class MainDisplay extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void pickupCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pickupCheckActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pickupCheckActionPerformed
 
     private void tourReviewRateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourReviewRateBtnActionPerformed
 
