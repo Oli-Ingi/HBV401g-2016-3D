@@ -6,20 +6,31 @@
 package hbv.view;
 
 
+import hbv.controller.*;
+import hbv.model.*;
+
+
 public class ReadReview extends javax.swing.JFrame {
 
+    Object obj;
+    private MainDisplay display;
     
-    
-    public ReadReview(String title, String reviewTitle, String author, String date, String txt, MainDisplay display) {
+    public ReadReview(Object obj, Review review, MainDisplay display) {
         initComponents();
+        this.obj = obj;
+        this.display = display;
         this.setTitle("Review");
-        nameLab.setText(title);
-        authorLab.setText(author);
-        reviewTitleLab.setText(reviewTitle);
-        dateLab.setText(date);
-        reviewTxt.setText(txt);
+        nameLab.setText(obj.toString());
+        authorLab.setText(review.getWriter());
+        reviewTitleLab.setText(review.getTitle());
+        dateLab.setText(review.getDate());
+        reviewTxt.setText(review.getText());
         this.setLocationRelativeTo(display);
+        this.setResizable(false);
+        this.setAlwaysOnTop(true);
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -114,8 +125,8 @@ public class ReadReview extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtScroller, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(exitBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(exitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();

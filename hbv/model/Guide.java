@@ -72,4 +72,9 @@ public class Guide {
         public void setProfile(String updatedProfile){
             this.profile = updatedProfile;
         }
+        
+        @Override
+        public String toString(){
+            return this.name;
+        }
 }

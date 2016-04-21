@@ -7,7 +7,6 @@ package hbv.view;
 import hbv.controller.SearchManager;
 import java.awt.Color;
 import javax.swing.JTextField;
-import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
@@ -16,16 +15,17 @@ import javax.swing.event.DocumentListener;
 
 public class WriteTourReviewDisplay extends javax.swing.JFrame {
 
-    private static String tourName;
-    private static MainDisplay display;
+    private final String tourName;
+    private final MainDisplay display;
 
     public WriteTourReviewDisplay(String name, MainDisplay display) {
         this.display = display;
         initComponents();
         this.setLocationRelativeTo(display);
-        tourName = name;
+        this.tourName = name;
         initExtra();
         this.setResizable(false);
+        this.setAlwaysOnTop(true);
         
     }
     
@@ -241,49 +241,49 @@ public class WriteTourReviewDisplay extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>
 
-    private void authorTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_authorTxtFocusGained
+    private void authorTxtFocusGained(java.awt.event.FocusEvent evt) {
         if(authorTxt.getText().equals("Your name here...")){
             authorTxt.setText("");
             authorTxt.setForeground(Color.BLACK);
         }
-    }//GEN-LAST:event_authorTxtFocusGained
+    }
 
-    private void authorTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_authorTxtFocusLost
+    private void authorTxtFocusLost(java.awt.event.FocusEvent evt) {
         if(authorTxt.getText().equals("")){
             authorTxt.setForeground(new Color(204,204,204));
             authorTxt.setText("Your name here...");
         }
-    }//GEN-LAST:event_authorTxtFocusLost
+    }
 
-    private void titleTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_titleTxtFocusGained
+    private void titleTxtFocusGained(java.awt.event.FocusEvent evt) {
         if(titleTxt.getText().equals("Descriptive title here...")){
             titleTxt.setText("");
             titleTxt.setForeground(Color.BLACK);
         }
-    }//GEN-LAST:event_titleTxtFocusGained
+    }
 
-    private void titleTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_titleTxtFocusLost
+    private void titleTxtFocusLost(java.awt.event.FocusEvent evt) {
         if(titleTxt.getText().equals("")){
             titleTxt.setText("Descriptive title here...");
             titleTxt.setForeground(new Color(204,204,204));
         }
-    }//GEN-LAST:event_titleTxtFocusLost
+    }
 
-    private void reviewTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_reviewTxtFocusGained
+    private void reviewTxtFocusGained(java.awt.event.FocusEvent evt) {
         if(reviewTxt.getText().equals("Write your review here...")){
             reviewTxt.setText("");
             reviewTxt.setForeground(Color.BLACK);
         }
-    }//GEN-LAST:event_reviewTxtFocusGained
+    }
 
-    private void reviewTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_reviewTxtFocusLost
+    private void reviewTxtFocusLost(java.awt.event.FocusEvent evt) {
         if(reviewTxt.getText().equals("")){
             reviewTxt.setText("Write your review here...");
             reviewTxt.setForeground(new Color(204,204,204));
         }
-    }//GEN-LAST:event_reviewTxtFocusLost
+    }
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         if(authorErrorLab.isVisible()){
@@ -302,47 +302,13 @@ public class WriteTourReviewDisplay extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "You need to write something in your review in order to submit a review.");
         }
         else{
-            SearchManager.addTourReview(tourName, titleTxt.getText(), authorTxt.getText(), reviewTxt.getText(), new Date());
+            SearchManager.addTourReview(tourName, titleTxt.getText(), authorTxt.getText(), reviewTxt.getText(),
+                    new java.sql.Date(new java.util.Date().getTime()));
             display.refreshTourReviewsList();
             this.dispose();
         }
-    }//GEN-LAST:event_submitBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(WriteTourReviewDisplay.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(WriteTourReviewDisplay.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(WriteTourReviewDisplay.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(WriteTourReviewDisplay.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new WriteTourReviewDisplay(tourName, display).setVisible(true);
-            }
-        });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel authorErrorLab;

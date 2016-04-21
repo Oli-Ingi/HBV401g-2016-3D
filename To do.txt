@@ -1,20 +1,24 @@
-When there are no search results:
-- add list cell that displays: No matches found.
-- Create a cardboard panel that switches to list if something found, or switches to image (no match found) if nothing found.
+When there are no search results:              XXX
+- Create a cardboard panel that switches to list if something found, or switches to image (no match found) if nothing found. XXX
 
 Duplicate write tour review window for write guide review window.    XXX
 
-Create read review window with like button.
 
-Create panel for rate tour stars and rate button - switch to "your rating :" non-outlined stars.
+Create read review window.           XXX
+- connect guides
+- fix with mouseClicked
 
-Add "no reviews yet" review cell if no reviews.
+Create panel for rate tour stars and rate button - switch to "your rating :" non-outlined stars.  XXX
+- ratedList that keeps track of rated while program is running
+
+fix dates when writing reviews           XXX
+
+Add "no reviews yet" review cell if no reviews.       XXX
 
 Optional:
 background image (Iceland wallpaper)
 - set panel colors to alpha something (% transparency)
 JFrame layout null - when tour cell selected resize frame to show.
 - close button on tour/guide window (just resizes)
-help window instead of tooltip
-better booking system
+help window instead of tooltip    XXX (switched tooltip to search btn, removed useless help label)
 Add more tours/guides/dates/reviews to DB

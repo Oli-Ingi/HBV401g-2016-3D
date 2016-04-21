@@ -7,7 +7,6 @@ package hbv.view;
 import hbv.controller.SearchManager;
 import java.awt.Color;
 import javax.swing.JTextField;
-import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
@@ -16,8 +15,8 @@ import javax.swing.event.DocumentListener;
 
 public class WriteGuideReviewDisplay extends javax.swing.JFrame {
 
-    private static String guideName;
-    private static MainDisplay display;
+    private final String guideName;
+    private final MainDisplay display;
 
     public WriteGuideReviewDisplay(String name, MainDisplay display) {
         this.display = display;
@@ -26,6 +25,7 @@ public class WriteGuideReviewDisplay extends javax.swing.JFrame {
         guideName = name;
         initExtra();
         this.setResizable(false);
+        this.setAlwaysOnTop(true);
         
     }
     
@@ -306,42 +306,6 @@ public class WriteGuideReviewDisplay extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_submitBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(WriteTourReviewDisplay.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(WriteTourReviewDisplay.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(WriteTourReviewDisplay.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(WriteTourReviewDisplay.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new WriteTourReviewDisplay(guideName, display).setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel authorErrorLab;

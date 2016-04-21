@@ -24,10 +24,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.Cursor;
 
-/**
- *
- * @author Notandi
- */
 public class MainDisplay extends javax.swing.JFrame {
 
     ArrayList<Review> tourReviews;
@@ -35,19 +31,17 @@ public class MainDisplay extends javax.swing.JFrame {
     DefaultListModel<Tour> tourModel;
     DefaultListModel<Review> tourReviewModel;
     DefaultListModel<Review> guideReviewModel;
-    private boolean rated;
     private int ratingChosen;
     private Tour currentTour;
     private Guide currentGuide;
+    private ArrayList<String> ratedList;
     
-    /**
-     * Creates new form BackupDisplay
-     */
     public MainDisplay() {
        
         initComponents();
         initExtras();
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     private void initExtras(){
@@ -90,8 +84,6 @@ public class MainDisplay extends javax.swing.JFrame {
         tourList.setCellRenderer(new TourCellRenderer());
         tourReviewList.setCellRenderer(new ReviewCellRenderer());
         guideReviewsList.setCellRenderer(new ReviewCellRenderer());
-        rated = false;
-        bookBtn.setVisible(false);
         
         tourGuideLab1.setCursor(new Cursor(Cursor.HAND_CURSOR));
         tourGuideLab2.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -144,19 +136,24 @@ public class MainDisplay extends javax.swing.JFrame {
         ratingFromLab = new javax.swing.JLabel();
         ratingCombo = new javax.swing.JComboBox(new String[]{"","1","2","3","4","5"});
         searchBtn = new javax.swing.JButton();
-        helpLab = new javax.swing.JLabel();
         seatsErrorLab = new javax.swing.JLabel();
         resultsPan = new javax.swing.JPanel();
-        orderLab = new javax.swing.JLabel();
+        listSwitcherPan = new javax.swing.JPanel();
+        introListPan = new javax.swing.JPanel();
+        introLab = new javax.swing.JLabel();
+        listPan = new javax.swing.JPanel();
         orderCombo = new javax.swing.JComboBox(new String[]{"","Name","Date","Type","Rating","Price"});
-        resultsLab = new javax.swing.JLabel();
+        orderLab = new javax.swing.JLabel();
         tourScroller = new javax.swing.JScrollPane();
         tourList = new javax.swing.JList();
+        resultsLab = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        searchListImagePan = new javax.swing.JPanel();
+        noResLab = new javax.swing.JLabel();
         mainTitlePan = new javax.swing.JPanel();
         mainTitleLab = new javax.swing.JLabel();
         secondaryTitlePan = new javax.swing.JPanel();
         secondaryTitleLab = new javax.swing.JLabel();
-        bookBtn = new javax.swing.JButton();
         selectedSep = new javax.swing.JSeparator();
         selectedMainCard = new javax.swing.JPanel();
         nothingChild = new javax.swing.JPanel();
@@ -179,14 +176,23 @@ public class MainDisplay extends javax.swing.JFrame {
         tourDescScroller = new javax.swing.JScrollPane();
         tourDescTxt = new javax.swing.JTextArea();
         tourReviewsPan = new javax.swing.JPanel();
-        tourReviewScroller = new javax.swing.JScrollPane();
-        tourReviewList = new javax.swing.JList();
         tourReviewWriteBtn = new javax.swing.JButton();
         tourBeenLab = new javax.swing.JLabel();
         tourReviewSep = new javax.swing.JSeparator();
+        tourStarsSep = new javax.swing.JSeparator();
+        tourReviewSwitcher = new javax.swing.JPanel();
+        tourReviewListPan = new javax.swing.JPanel();
+        tourReviewScroller = new javax.swing.JScrollPane();
+        tourReviewList = new javax.swing.JList();
+        noTourReviewsPan = new javax.swing.JPanel();
+        noTourReviewsLab = new javax.swing.JLabel();
+        ratingSwitcher = new javax.swing.JPanel();
+        rateStarsPan = new javax.swing.JPanel();
         tourStarsLab = new javax.swing.JLabel();
         tourReviewRateBtn = new javax.swing.JButton();
-        tourStarsSep = new javax.swing.JSeparator();
+        ratedStarsPan = new javax.swing.JPanel();
+        youRatedLab = new javax.swing.JLabel();
+        ratedStarsLab = new javax.swing.JLabel();
         guideChild = new javax.swing.JPanel();
         guideDetailsPan = new javax.swing.JPanel();
         guideNameLab = new javax.swing.JLabel();
@@ -196,9 +202,13 @@ public class MainDisplay extends javax.swing.JFrame {
         guideProfileScroller = new javax.swing.JScrollPane();
         guideProfileTxtArea = new javax.swing.JTextArea();
         guideReviewsPan = new javax.swing.JPanel();
+        guideReviewWriteBtn = new javax.swing.JButton();
+        guideReviewSwitcher = new javax.swing.JPanel();
+        guideReviewListPan = new javax.swing.JPanel();
         guideReviewScroller = new javax.swing.JScrollPane();
         guideReviewsList = new javax.swing.JList();
-        guideReviewWriteBtn = new javax.swing.JButton();
+        noGuideReviews = new javax.swing.JPanel();
+        noGuideReviewsLab = new javax.swing.JLabel();
         guideBackBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -266,6 +276,7 @@ public class MainDisplay extends javax.swing.JFrame {
 
         searchBtn.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         searchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/searchBtnb.png"))); // NOI18N
+        searchBtn.setToolTipText("All search parameters are optional");
         searchBtn.setFocusable(false);
         searchBtn.setOpaque(false);
         searchBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -273,10 +284,6 @@ public class MainDisplay extends javax.swing.JFrame {
                 searchBtnActionPerformed(evt);
             }
         });
-
-        helpLab.setBackground(new java.awt.Color(204, 204, 255));
-        helpLab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/help.png"))); // NOI18N
-        helpLab.setToolTipText("All search parameters are optional");
 
         seatsErrorLab.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         seatsErrorLab.setForeground(new java.awt.Color(255, 0, 0));
@@ -298,8 +305,7 @@ public class MainDisplay extends javax.swing.JFrame {
                     .addComponent(nameLab)
                     .addComponent(seatsLab)
                     .addComponent(pickupLab)
-                    .addComponent(ratingLab)
-                    .addComponent(helpLab))
+                    .addComponent(ratingLab))
                 .addGap(19, 19, 19)
                 .addGroup(searchParamsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pickupCheck)
@@ -404,17 +410,30 @@ public class MainDisplay extends javax.swing.JFrame {
                     .addComponent(ratingFromLab)
                     .addComponent(ratingCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(searchParamsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(searchBtn, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(helpLab, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(searchBtn)
                 .addGap(19, 19, 19))
         );
 
         resultsPan.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         resultsPan.setPreferredSize(new java.awt.Dimension(496, 524));
 
-        orderLab.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        orderLab.setText("Order by: ");
+        listSwitcherPan.setLayout(new java.awt.CardLayout());
+
+        introLab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        introLab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Intro.png"))); // NOI18N
+
+        javax.swing.GroupLayout introListPanLayout = new javax.swing.GroupLayout(introListPan);
+        introListPan.setLayout(introListPanLayout);
+        introListPanLayout.setHorizontalGroup(
+            introListPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(introLab, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+        );
+        introListPanLayout.setVerticalGroup(
+            introListPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(introLab, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+        );
+
+        listSwitcherPan.add(introListPan, "card4");
 
         orderCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -422,9 +441,8 @@ public class MainDisplay extends javax.swing.JFrame {
             }
         });
 
-        resultsLab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        resultsLab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        resultsLab.setText("Search results:");
+        orderLab.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        orderLab.setText("Order by: ");
 
         tourList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tourList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -434,37 +452,76 @@ public class MainDisplay extends javax.swing.JFrame {
         });
         tourScroller.setViewportView(tourList);
 
+        resultsLab.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        resultsLab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        resultsLab.setText("Search results:");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/showFindOff.png"))); // NOI18N
+
+        javax.swing.GroupLayout listPanLayout = new javax.swing.GroupLayout(listPan);
+        listPan.setLayout(listPanLayout);
+        listPanLayout.setHorizontalGroup(
+            listPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(listPanLayout.createSequentialGroup()
+                .addGroup(listPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(listPanLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(orderLab)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(orderCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE))
+                    .addGroup(listPanLayout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)))
+                .addGroup(listPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tourScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                    .addComponent(resultsLab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        listPanLayout.setVerticalGroup(
+            listPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(listPanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(resultsLab)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(listPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(listPanLayout.createSequentialGroup()
+                        .addGroup(listPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(orderLab)
+                            .addComponent(orderCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE))
+                    .addComponent(tourScroller))
+                .addContainerGap())
+        );
+
+        listSwitcherPan.add(listPan, "card2");
+
+        noResLab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        noResLab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/noRs.png"))); // NOI18N
+
+        javax.swing.GroupLayout searchListImagePanLayout = new javax.swing.GroupLayout(searchListImagePan);
+        searchListImagePan.setLayout(searchListImagePanLayout);
+        searchListImagePanLayout.setHorizontalGroup(
+            searchListImagePanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(noResLab, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
+        );
+        searchListImagePanLayout.setVerticalGroup(
+            searchListImagePanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(noResLab, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+        );
+
+        listSwitcherPan.add(searchListImagePan, "card3");
+
         javax.swing.GroupLayout resultsPanLayout = new javax.swing.GroupLayout(resultsPan);
         resultsPan.setLayout(resultsPanLayout);
         resultsPanLayout.setHorizontalGroup(
             resultsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(resultsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(orderLab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(orderCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(resultsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(resultsPanLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(resultsLab, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultsPanLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(tourScroller, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+            .addComponent(listSwitcherPan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         resultsPanLayout.setVerticalGroup(
             resultsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(resultsPanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(resultsLab)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(resultsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(resultsPanLayout.createSequentialGroup()
-                        .addComponent(orderLab)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(orderCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addComponent(tourScroller)))
+            .addComponent(listSwitcherPan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
         );
 
         mainTitlePan.setOpaque(false);
@@ -479,7 +536,7 @@ public class MainDisplay extends javax.swing.JFrame {
             mainTitlePanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainTitlePanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(mainTitleLab, javax.swing.GroupLayout.PREFERRED_SIZE, 889, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mainTitleLab, javax.swing.GroupLayout.PREFERRED_SIZE, 974, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainTitlePanLayout.setVerticalGroup(
@@ -494,30 +551,17 @@ public class MainDisplay extends javax.swing.JFrame {
         secondaryTitleLab.setForeground(new java.awt.Color(0, 0, 255));
         secondaryTitleLab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        bookBtn.setText("Book now!");
-        bookBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bookBtnActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout secondaryTitlePanLayout = new javax.swing.GroupLayout(secondaryTitlePan);
         secondaryTitlePan.setLayout(secondaryTitlePanLayout);
         secondaryTitlePanLayout.setHorizontalGroup(
             secondaryTitlePanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(secondaryTitleLab, javax.swing.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
-            .addGroup(secondaryTitlePanLayout.createSequentialGroup()
-                .addGap(97, 97, 97)
-                .addComponent(bookBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         secondaryTitlePanLayout.setVerticalGroup(
             secondaryTitlePanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(secondaryTitlePanLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(secondaryTitleLab, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(bookBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(secondaryTitleLab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -535,14 +579,14 @@ public class MainDisplay extends javax.swing.JFrame {
             nothingChildLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nothingChildLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nothingLoadedLab, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                .addComponent(nothingLoadedLab, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
                 .addContainerGap())
         );
         nothingChildLayout.setVerticalGroup(
             nothingChildLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nothingChildLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nothingLoadedLab, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
+                .addComponent(nothingLoadedLab, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -675,14 +719,6 @@ public class MainDisplay extends javax.swing.JFrame {
 
         tourReviewsPan.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Reviews", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
-        tourReviewList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tourReviewList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                tourReviewListValueChanged(evt);
-            }
-        });
-        tourReviewScroller.setViewportView(tourReviewList);
-
         tourReviewWriteBtn.setText("Write review");
         tourReviewWriteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -694,7 +730,58 @@ public class MainDisplay extends javax.swing.JFrame {
         tourBeenLab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tourBeenLab.setText("Been on this tour?");
 
+        tourStarsSep.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        tourReviewSwitcher.setLayout(new java.awt.CardLayout());
+
+        tourReviewList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tourReviewList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tourReviewListMouseClicked(evt);
+            }
+        });
+        tourReviewScroller.setViewportView(tourReviewList);
+
+        javax.swing.GroupLayout tourReviewListPanLayout = new javax.swing.GroupLayout(tourReviewListPan);
+        tourReviewListPan.setLayout(tourReviewListPanLayout);
+        tourReviewListPanLayout.setHorizontalGroup(
+            tourReviewListPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tourReviewListPanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tourReviewScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        tourReviewListPanLayout.setVerticalGroup(
+            tourReviewListPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(tourReviewListPanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tourReviewScroller, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        tourReviewSwitcher.add(tourReviewListPan, "card2");
+
+        noTourReviewsLab.setFont(new java.awt.Font("Sylfaen", 0, 18)); // NOI18N
+        noTourReviewsLab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        noTourReviewsLab.setText("No reviews for this tour yet");
+
+        javax.swing.GroupLayout noTourReviewsPanLayout = new javax.swing.GroupLayout(noTourReviewsPan);
+        noTourReviewsPan.setLayout(noTourReviewsPanLayout);
+        noTourReviewsPanLayout.setHorizontalGroup(
+            noTourReviewsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(noTourReviewsLab, javax.swing.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+        );
+        noTourReviewsPanLayout.setVerticalGroup(
+            noTourReviewsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(noTourReviewsLab, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+        );
+
+        tourReviewSwitcher.add(noTourReviewsPan, "card3");
+
+        ratingSwitcher.setLayout(new java.awt.CardLayout());
+
         tourStarsLab.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/0star.png"))); // NOI18N
+        tourStarsLab.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         tourStarsLab.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tourStarsLabMousePressed(evt);
@@ -712,7 +799,44 @@ public class MainDisplay extends javax.swing.JFrame {
             }
         });
 
-        tourStarsSep.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        javax.swing.GroupLayout rateStarsPanLayout = new javax.swing.GroupLayout(rateStarsPan);
+        rateStarsPan.setLayout(rateStarsPanLayout);
+        rateStarsPanLayout.setHorizontalGroup(
+            rateStarsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rateStarsPanLayout.createSequentialGroup()
+                .addGap(2, 2, 2)
+                .addComponent(tourStarsLab)
+                .addGap(18, 18, 18)
+                .addComponent(tourReviewRateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+        rateStarsPanLayout.setVerticalGroup(
+            rateStarsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(tourStarsLab, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(tourReviewRateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        ratingSwitcher.add(rateStarsPan, "card2");
+
+        youRatedLab.setText("You rated:");
+
+        javax.swing.GroupLayout ratedStarsPanLayout = new javax.swing.GroupLayout(ratedStarsPan);
+        ratedStarsPan.setLayout(ratedStarsPanLayout);
+        ratedStarsPanLayout.setHorizontalGroup(
+            ratedStarsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ratedStarsPanLayout.createSequentialGroup()
+                .addComponent(youRatedLab, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ratedStarsLab, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        ratedStarsPanLayout.setVerticalGroup(
+            ratedStarsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(youRatedLab, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(ratedStarsLab, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        ratingSwitcher.add(ratedStarsPan, "card3");
 
         javax.swing.GroupLayout tourReviewsPanLayout = new javax.swing.GroupLayout(tourReviewsPan);
         tourReviewsPan.setLayout(tourReviewsPanLayout);
@@ -723,31 +847,28 @@ public class MainDisplay extends javax.swing.JFrame {
                 .addGroup(tourReviewsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tourBeenLab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tourReviewSep, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tourReviewScroller)
                     .addGroup(tourReviewsPanLayout.createSequentialGroup()
                         .addComponent(tourReviewWriteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tourStarsSep, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tourStarsLab)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tourReviewRateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ratingSwitcher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tourReviewSwitcher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         tourReviewsPanLayout.setVerticalGroup(
             tourReviewsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tourReviewsPanLayout.createSequentialGroup()
-                .addComponent(tourReviewScroller, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tourReviewSwitcher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tourReviewSep, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tourBeenLab, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(tourReviewsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tourReviewRateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tourStarsLab, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(tourStarsSep)
-                    .addComponent(tourReviewWriteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tourReviewWriteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(ratingSwitcher, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tourStarsSep))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -797,7 +918,7 @@ public class MainDisplay extends javax.swing.JFrame {
                     .addComponent(guideNameLab)
                     .addComponent(guideGenderLab)
                     .addComponent(guideAgeLab))
-                .addGap(79, 322, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         guideDetailsPanLayout.setVerticalGroup(
             guideDetailsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -835,14 +956,57 @@ public class MainDisplay extends javax.swing.JFrame {
 
         guideReviewsPan.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Guide Reviews", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
-        guideReviewScroller.setViewportView(guideReviewsList);
-
         guideReviewWriteBtn.setText("Write review");
         guideReviewWriteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 guideReviewWriteBtnActionPerformed(evt);
             }
         });
+
+        guideReviewSwitcher.setLayout(new java.awt.CardLayout());
+
+        guideReviewsList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                guideReviewsListMouseClicked(evt);
+            }
+        });
+        guideReviewScroller.setViewportView(guideReviewsList);
+
+        javax.swing.GroupLayout guideReviewListPanLayout = new javax.swing.GroupLayout(guideReviewListPan);
+        guideReviewListPan.setLayout(guideReviewListPanLayout);
+        guideReviewListPanLayout.setHorizontalGroup(
+            guideReviewListPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(guideReviewListPanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(guideReviewScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        guideReviewListPanLayout.setVerticalGroup(
+            guideReviewListPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(guideReviewListPanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(guideReviewScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        guideReviewSwitcher.add(guideReviewListPan, "card2");
+
+        noGuideReviewsLab.setFont(new java.awt.Font("Sylfaen", 0, 18)); // NOI18N
+        noGuideReviewsLab.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        noGuideReviewsLab.setText("No reviews for this guide yet");
+
+        javax.swing.GroupLayout noGuideReviewsLayout = new javax.swing.GroupLayout(noGuideReviews);
+        noGuideReviews.setLayout(noGuideReviewsLayout);
+        noGuideReviewsLayout.setHorizontalGroup(
+            noGuideReviewsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(noGuideReviewsLab, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+        );
+        noGuideReviewsLayout.setVerticalGroup(
+            noGuideReviewsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(noGuideReviewsLab, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+        );
+
+        guideReviewSwitcher.add(noGuideReviews, "card3");
 
         javax.swing.GroupLayout guideReviewsPanLayout = new javax.swing.GroupLayout(guideReviewsPan);
         guideReviewsPan.setLayout(guideReviewsPanLayout);
@@ -851,14 +1015,14 @@ public class MainDisplay extends javax.swing.JFrame {
             .addGroup(guideReviewsPanLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(guideReviewsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(guideReviewScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
-                    .addComponent(guideReviewWriteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
+                    .addComponent(guideReviewWriteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(guideReviewSwitcher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         guideReviewsPanLayout.setVerticalGroup(
             guideReviewsPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(guideReviewsPanLayout.createSequentialGroup()
-                .addComponent(guideReviewScroller, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                .addComponent(guideReviewSwitcher, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(guideReviewWriteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -909,19 +1073,19 @@ public class MainDisplay extends javax.swing.JFrame {
             .addGroup(backgroundPanLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(backgroundPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(mainTitlePan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mainTitlePan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(backgroundPanLayout.createSequentialGroup()
                         .addComponent(searchParamsPan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(resultsPan, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(selectedSep, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(resultsPan, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)))
+                .addComponent(selectedSep, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(backgroundPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundPanLayout.createSequentialGroup()
                         .addComponent(secondaryTitlePan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(selectedMainCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(selectedMainCard, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         backgroundPanLayout.setVerticalGroup(
@@ -940,7 +1104,7 @@ public class MainDisplay extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(backgroundPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(selectedMainCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(resultsPan, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                            .addComponent(resultsPan, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
                             .addComponent(searchParamsPan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -956,7 +1120,7 @@ public class MainDisplay extends javax.swing.JFrame {
 
     private void tourReviewRateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tourReviewRateBtnActionPerformed
 
-        if(currentTour!=null) SearchManager.updateRating(currentTour.getName(), ratingChosen);
+        SearchManager.updateRating(currentTour.getName(), ratingChosen);
         /*
         Þar sem við getum ekki kannað IP-tölur eða þ.u.l. þá látum við
         bara hvert tour object geyma upplýsingar um það hvort það hafi verið búið
@@ -970,11 +1134,14 @@ public class MainDisplay extends javax.swing.JFrame {
              }
          }
          tourReviewRateBtn.setEnabled(false);
+         ((CardLayout)ratingSwitcher.getLayout()).last(ratingSwitcher);
+         ratedStarsLab.setIcon(new ImageIcon(getClass().getResource("/Images/list"+currentTour.getUserRating()+"star.png")));
         
     }//GEN-LAST:event_tourReviewRateBtnActionPerformed
 
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         tourModel.clear();
+        orderCombo.setSelectedIndex(0);
         
         String priceLowStr = priceFromCombo.getSelectedItem().toString();
         Integer priceLow = null;
@@ -1016,12 +1183,14 @@ public class MainDisplay extends javax.swing.JFrame {
             tours = SearchManager.createList(priceLow, priceHigh, durationLow, durationHigh, dateFrom, dateTo, minSeats, 
                     destination, departure, tourType, rating, hotelPickup, tourName);
             
+            if(searchListImagePan.isShowing()) ((CardLayout)listSwitcherPan.getLayout()).previous(listSwitcherPan);
+            else if(introListPan.isShowing()) ((CardLayout)listSwitcherPan.getLayout()).next(listSwitcherPan);
             
             for(Tour tour: tours){
                 tourModel.addElement(tour);
             }
         }catch(NoSuchElementException e){
-            // TODO set No search results notification somewhere
+            if(listPan.isShowing() || introListPan.isShowing()) ((CardLayout)listSwitcherPan.getLayout()).last(listSwitcherPan);
         }
     }//GEN-LAST:event_searchBtnActionPerformed
 
@@ -1061,9 +1230,14 @@ public class MainDisplay extends javax.swing.JFrame {
                     tourGuideLab3.setText(guides.get(2).getNickName());
                 }
                 refreshTourReviewsList();
-                bookBtn.setVisible(true);
-                
-                tourStarsLab.setIcon(new ImageIcon(getClass().getResource("/Images/"+currentTour.getUserRating()+"star.png")));
+ 
+                if(currentTour.isRated()){
+                    ((CardLayout)ratingSwitcher.getLayout()).last(ratingSwitcher);
+                    ratedStarsLab.setIcon(new ImageIcon(getClass().getResource("/Images/list"+currentTour.getUserRating()+"star.png")));
+                } else {
+                    ((CardLayout)ratingSwitcher.getLayout()).first(ratingSwitcher);
+                    tourStarsLab.setIcon(new ImageIcon(getClass().getResource("/Images/0star.png")));
+                }
             }
         }
 
@@ -1092,6 +1266,7 @@ public class MainDisplay extends javax.swing.JFrame {
                 }
                 else{
                     stars = new ImageIcon(getClass().getResource("/Images/5star.png"));
+                    ratingChosen = 5;
                 }
                 tourStarsLab.setIcon(stars);
             }
@@ -1143,7 +1318,6 @@ public class MainDisplay extends javax.swing.JFrame {
         if(currentTour!=null && currentTour.getGuides().size()>0){
             setGuideInfo(0);
             secondaryTitleLab.setText(tourGuideLab1.getText());
-            bookBtn.setVisible(false);
         }
     }//GEN-LAST:event_tourGuideLab1MouseClicked
 
@@ -1152,7 +1326,6 @@ public class MainDisplay extends javax.swing.JFrame {
         if(currentTour!=null && currentTour.getGuides().size()>1){
             setGuideInfo(1);
             secondaryTitleLab.setText(tourGuideLab2.getText());
-            bookBtn.setVisible(false);
         }
     }//GEN-LAST:event_tourGuideLab2MouseClicked
 
@@ -1161,7 +1334,6 @@ public class MainDisplay extends javax.swing.JFrame {
         if(currentTour!=null && currentTour.getGuides().size()>2){
             setGuideInfo(2);
             secondaryTitleLab.setText(tourGuideLab3.getText());
-            bookBtn.setVisible(false);
         }
     }//GEN-LAST:event_tourGuideLab3MouseClicked
 
@@ -1169,33 +1341,25 @@ public class MainDisplay extends javax.swing.JFrame {
 
         ((CardLayout)selectedMainCard.getLayout()).previous(selectedMainCard);
         secondaryTitleLab.setText(currentTour.getName());
-        bookBtn.setVisible(true);
     }//GEN-LAST:event_guideBackBtnActionPerformed
 
-    private void bookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookBtnActionPerformed
-        
-        if(currentTour != null){
-            try{
-                SearchManager.bookTourSeats(currentTour, 1);
-            tourSeatsLab.setText("Available seats: "+String.valueOf(currentTour.getSeatsAvailable()));
-            } catch (IllegalArgumentException e){
-                JOptionPane.showMessageDialog(this, "Sorry, there are too few seats available for this tour.");
-            }
-            
-            
-        }
-    }//GEN-LAST:event_bookBtnActionPerformed
+    private void guideReviewsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guideReviewsListMouseClicked
 
-    private void tourReviewListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_tourReviewListValueChanged
-        if(!evt.getValueIsAdjusting()){
-            if((Review)tourReviewList.getSelectedValue()!=null){
-                Review currentReview = (Review)tourReviewList.getSelectedValue();
-                new ReadReview(currentTour.getName(),currentReview.getTitle(),currentReview.getWriter(),currentReview.getDate()
-            ,currentReview.getText(),this).setVisible(true);
-            }
+        if(guideReviewsList.getSelectedValue()!=null){
+            Review rev = (Review)guideReviewsList.getSelectedValue();
             
+            new ReadReview(currentGuide,(Review)guideReviewsList.getSelectedValue(),this).setVisible(true);
         }
-    }//GEN-LAST:event_tourReviewListValueChanged
+    }//GEN-LAST:event_guideReviewsListMouseClicked
+
+    private void tourReviewListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tourReviewListMouseClicked
+
+        if(tourReviewList.getSelectedValue()!=null){
+            Review rev = (Review)tourReviewList.getSelectedValue();
+            
+            new ReadReview(currentTour,(Review)tourReviewList.getSelectedValue(),this).setVisible(true);
+        }
+    }//GEN-LAST:event_tourReviewListMouseClicked
 
     private void setGuideInfo(int guideNum){
         ((CardLayout)selectedMainCard.getLayout()).next(selectedMainCard);
@@ -1232,7 +1396,14 @@ public class MainDisplay extends javax.swing.JFrame {
     
     public void refreshTourReviewsList(){
         tourReviewModel.clear();
-        if(currentTour.getReviews().isEmpty()) SearchManager.loadTourReviews(currentTour);
+ 
+        try{
+            SearchManager.loadTourReviews(currentTour);
+            ((CardLayout)tourReviewSwitcher.getLayout()).first(tourReviewSwitcher);
+        } catch (NoSuchElementException e){
+            ((CardLayout)tourReviewSwitcher.getLayout()).last(tourReviewSwitcher);
+        }
+
         for(Review tourRev: currentTour.getReviews()){
             tourReviewModel.addElement(tourRev);
         }
@@ -1240,7 +1411,13 @@ public class MainDisplay extends javax.swing.JFrame {
     
     public void refreshGuideReviewsList(){
         guideReviewModel.clear();
-        if(currentGuide.getReviews().isEmpty()) SearchManager.loadGuideReviews(currentGuide);
+        try{
+            SearchManager.loadGuideReviews(currentGuide);
+            ((CardLayout)guideReviewSwitcher.getLayout()).first(guideReviewSwitcher);
+        } catch(NoSuchElementException e){
+            ((CardLayout)guideReviewSwitcher.getLayout()).last(guideReviewSwitcher);
+        }
+        
         for(Review guideRev: currentGuide.getReviews()){
             guideReviewModel.addElement(guideRev);
         }
@@ -1255,7 +1432,7 @@ public class MainDisplay extends javax.swing.JFrame {
         public Component getListCellRendererComponent(JList list, Object value,
                 int index, boolean isSelected, boolean cellHasFocus) {
             Review review = (Review) value;
-            ReviewCell reviewEntry = new ReviewCell(review.getTitle(), String.valueOf(review.getLikeAmount()));
+            ReviewCell reviewEntry = new ReviewCell(review.getTitle());
 
             reviewEntry.setBorder(BorderFactory.createEtchedBorder());
             if (isSelected) {
@@ -1330,7 +1507,6 @@ public class MainDisplay extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel backgroundPan;
-    private javax.swing.JButton bookBtn;
     private javax.swing.JLabel dateFromLab;
     private javax.swing.JLabel dateLab;
     private javax.swing.JLabel dateToLab;
@@ -1353,15 +1529,26 @@ public class MainDisplay extends javax.swing.JFrame {
     private javax.swing.JPanel guideProfilePan;
     private javax.swing.JScrollPane guideProfileScroller;
     private javax.swing.JTextArea guideProfileTxtArea;
+    private javax.swing.JPanel guideReviewListPan;
     private javax.swing.JScrollPane guideReviewScroller;
+    private javax.swing.JPanel guideReviewSwitcher;
     private javax.swing.JButton guideReviewWriteBtn;
     private javax.swing.JList guideReviewsList;
     private javax.swing.JPanel guideReviewsPan;
-    private javax.swing.JLabel helpLab;
+    private javax.swing.JLabel introLab;
+    private javax.swing.JPanel introListPan;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel listPan;
+    private javax.swing.JPanel listSwitcherPan;
     private javax.swing.JLabel mainTitleLab;
     private javax.swing.JPanel mainTitlePan;
     private javax.swing.JLabel nameLab;
     private javax.swing.JTextField nameTxt;
+    private javax.swing.JPanel noGuideReviews;
+    private javax.swing.JLabel noGuideReviewsLab;
+    private javax.swing.JLabel noResLab;
+    private javax.swing.JLabel noTourReviewsLab;
+    private javax.swing.JPanel noTourReviewsPan;
     private javax.swing.JPanel nothingChild;
     private javax.swing.JLabel nothingLoadedLab;
     private javax.swing.JComboBox orderCombo;
@@ -1373,12 +1560,17 @@ public class MainDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel priceLab;
     private javax.swing.JComboBox priceToCombo;
     private javax.swing.JLabel priceToLab;
+    private javax.swing.JPanel rateStarsPan;
+    private javax.swing.JLabel ratedStarsLab;
+    private javax.swing.JPanel ratedStarsPan;
     private javax.swing.JComboBox ratingCombo;
     private javax.swing.JLabel ratingFromLab;
     private javax.swing.JLabel ratingLab;
+    private javax.swing.JPanel ratingSwitcher;
     private javax.swing.JLabel resultsLab;
     private javax.swing.JPanel resultsPan;
     private javax.swing.JButton searchBtn;
+    private javax.swing.JPanel searchListImagePan;
     private javax.swing.JPanel searchParamsPan;
     private javax.swing.JLabel seatsErrorLab;
     private javax.swing.JLabel seatsLab;
@@ -1406,9 +1598,11 @@ public class MainDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel tourPickupLab;
     private javax.swing.JLabel tourPriceLab;
     private javax.swing.JList tourReviewList;
+    private javax.swing.JPanel tourReviewListPan;
     private javax.swing.JButton tourReviewRateBtn;
     private javax.swing.JScrollPane tourReviewScroller;
     private javax.swing.JSeparator tourReviewSep;
+    private javax.swing.JPanel tourReviewSwitcher;
     private javax.swing.JButton tourReviewWriteBtn;
     private javax.swing.JPanel tourReviewsPan;
     private javax.swing.JScrollPane tourScroller;
@@ -1418,5 +1612,6 @@ public class MainDisplay extends javax.swing.JFrame {
     private javax.swing.JLabel tourTypeLab;
     private javax.swing.JComboBox typeCombo;
     private javax.swing.JLabel typeLab;
+    private javax.swing.JLabel youRatedLab;
     // End of variables declaration//GEN-END:variables
 }
